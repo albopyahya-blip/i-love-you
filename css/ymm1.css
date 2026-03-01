@@ -150,9 +150,10 @@ body {
 /* الصوره */
 .image1{
     display: flex;
-    justify-content: center; /* توسيط أفقي */
+    justify-content: center;
+     /* توسيط أفقي */
     align-items: center; 
-    height: 100vh;
+    height: 85vh;
     margin: 0;
 }
 
