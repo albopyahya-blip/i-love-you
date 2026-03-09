@@ -2,9 +2,10 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Typing Effect</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>questions</title>
 <style>
+    
 body{
     background:black;
     color:white;
@@ -17,64 +18,179 @@ body{
     font-family:Arial;
 }
 
-/* النص */
-#text{
-    font-size:36px;         /* تكبير الخط */
-    max-width:600px;        /* تقليل عرض السطر */
-    text-align:center;
-    line-height:1.8;
-    border-left:3px solid #ff4da6;
-    border-right:3px solid #ff4da6;
-    padding:20px;
-    margin-bottom:40px;
+.quiz-container {
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 40px;
+    border-radius: 12px;
+    background: #111;
 }
 
-/* الزرار */
-button{
-    padding:18px 40px; /* حجم أكبر */
-    font-size:22px;    /* تكبير الخط */
+#question {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#options {
+    padding: 0;
+}
+
+#options li {
+    list-style: none;
+    margin: 12px 0;
+    padding: 14px;
+    background: #ff4da6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+}
+
+#feedback {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#retryBtn {
+    padding:18px 40px;
+    font-size:22px;
     border:none;
     border-radius:8px;
     background:#ff4da6;
     color:white;
     cursor:pointer;
     display:none;
-    transition:0.3s;
+    margin-top:20px;
+}
+@media (max-width:600px){
+
+.quiz-container{
+    max-width:320px;
+    width:90%;
+    padding:12px;
 }
 
-button:hover{
-    background:#ff2f92;
+#question{
+    font-size:20px;
 }
+
+#options li{
+    font-size:15px;
+    padding:10px;
+}
+
+#feedback{
+    font-size:16px;
+}
+
+#retryBtn{
+    font-size:16px;
+    padding:10px 20px;
+}
+
+}
+
 </style>
-</head>
 
+</head>
 <body>
 
-<div id="text"></div>
-
-<button id="btn" onclick="window.location.href='index501.html'">
-soon
-</button>
+<div class="quiz-container">
+  <h2 id="question">هنا السؤال</h2>
+  <ul id="options"></ul>
+  <p id="feedback"></p>
+  <button id="retryBtn" onclick="retry()">إعادة المحاولة</button>
+</div>
 
 <script>
+const questions = [
+    { question: "The first day I spoke to you", options: ["2026/1/20", "2026/1/18", "2026/1/19", "2026/1/21"], answer: "2026/1/20" },
+    { question: "Special day", options: ["2026/2/20", "2026/2/18", "2026/2/19", "2026/2/17"], answer: "2026/2/18" },
+    { question: "Special The first day we go out", options: ["2026/2/23", "2026/2/20", "2026/2/21", "2026/3/2"], answer: "2026/2/23" },
+    { question: "What day is the next time we go out?", options: ["2026/2/2", "2026/3/3", "2026/2/3", "2026/3/2"], answer: "2026/3/2" },
+    { question: "alyawm allly airtabatat fih", options: ["2026/2/27", "2026/2/25", "2026/2/24", "2026/2/26"], answer: "2026/2/27" },
+    
+];
 
-let message = "I just want to tell you something that comes straight from my heart Since you came into my life many things have changed for the better You became someone very special to me someone whose presence makes my days brighter and my heart calmer Sometimes I find myself thinking about you for no reason and suddenly I smile Just knowing that you exist in my life gives me a feeling of happiness that is hard to explain Your smile means a lot to me and your voice has a way of making everything feel okay I want to promise you something very important No matter what happens in life I will always try to be there for you Through the happy days and the difficult ones I will stand by your side and support you When you feel tired or sad I want to be the person who reminds you how strong and amazing you are When life becomes difficult I want to be the one who stays with you and helps you go through it You are not just someone I love you are someone I truly care about Someone whose happiness matters to me and someone I want to see smiling and feeling safe I promise that I will always respect you care about you and appreciate you I will always try to make you feel valued and important because to me you really are And no matter how much time passes or how life changes I want you to remember one thing you will always have someone who cares about you deeply and wishes you nothing but happiness Having you in my life is something I am truly grateful for and I hope we can continue sharing many beautiful moments together";
-
-let i = 0;
-let speed = 40;
-
-function typeWriter(){
-    if(i < message.length){
-        document.getElementById("text").innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-    }else{
-        document.getElementById("btn").style.display = "block";
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
 }
 
-typeWriter();
+// خلط ترتيب الأسئلة
+shuffleArray(questions);
 
+let currentQuestion = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const feedbackEl = document.getElementById("feedback");
+const retryBtn = document.getElementById("retryBtn");
+
+function loadQuestion() {
+    feedbackEl.textContent = "";
+    retryBtn.style.display = "none";
+
+    if(currentQuestion >= questions.length){
+        if(score === questions.length){
+            // لو كل الأسئلة صح، يروح لصفحة success.html
+            window.location.href = "index501.html";
+        } else {
+            feedbackEl.textContent = "انتهت الأسئلة اضغط على إعادة المحاولة للعب مرة أخرى";
+            retryBtn.style.display = "inline-block";
+        }
+        return;
+    }
+
+    const q = questions[currentQuestion];
+    questionEl.textContent = q.question;
+    optionsEl.innerHTML = "";
+
+    const shuffledOptions = shuffleArray([...q.options]);
+
+    shuffledOptions.forEach(option => {
+        const li = document.createElement("li");
+        li.textContent = option;
+        li.onclick = () => selectOption(option);
+        optionsEl.appendChild(li);
+    });
+}
+
+function selectOption(selected){
+    const q = questions[currentQuestion];
+    if(selected === q.answer){
+        score++;
+        feedbackEl.style.color = "lightgreen";
+        feedbackEl.textContent = "إجابة صحيحة";
+    } else {
+        feedbackEl.style.color = "red";
+        feedbackEl.textContent = "إجابة خاطئة";
+    }
+
+    const allOptions = optionsEl.querySelectorAll("li");
+    allOptions.forEach(li => li.onclick = null);
+
+    setTimeout(() => {
+        currentQuestion++;
+        loadQuestion();
+    }, 1200);
+}
+
+function retry(){
+    currentQuestion = 0;
+    score = 0;
+    shuffleArray(questions);
+    loadQuestion();
+}
+
+loadQuestion();
 </script>
 
 </body>
