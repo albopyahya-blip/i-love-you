@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>صفحة كلمة المرور</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a, #000000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    padding-top: 50px; /* مسافة للرسالة من فوق على الموبايل */
+    box-sizing: border-box;
+}
+
+/* العنوان */
+h2 {
+    margin-bottom: 30px;
+    font-size: 6vw; /* أكبر على الموبايل */
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+/* صندوق الإدخال */
+input {
+    padding: 18px 25px;
+    font-size: 5vw; /* أكبر على الموبايل */
+    border-radius: 12px;
+    border: 2px solid #ff4da6;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    margin-bottom: 20px;
+    width: 75vw;
+    max-width: 350px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ff2f92;
+    box-shadow: 0 0 15px rgba(255, 77, 166, 0.5);
+}
+
+/* اهتزاز عند الخطأ */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+/* الزرار */
+button {
+    padding: 15px 35px;
+    font-size: 5vw; /* أكبر على الموبايل */
+    color: #fff;
+    background: linear-gradient(90deg, #ff4da6, #ff2f92);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 77, 166, 0.4);
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(255, 77, 166, 0.7);
+}
+
+/* رسالة الخطأ من فوق */
+.alert {
+    position: absolute;
+    top: 10px; /* متناسبة مع الفون */
+    background-color: rgba(255, 77, 166, 0.9);
+    padding: 12px 25px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    display: none;
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    font-size: 5vw; /* أكبر على الفون */
+}
+
+/* Media query للشاشات الكبيرة */
+@media screen and (min-width: 600px) {
+    input, button {
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 28px;
+    }
+    .alert {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+<body>
+
+<h2>اكتب الكلمة لفتح الصفحة</h2>
+<input type="text" id="keyInput" placeholder="اكتب الكلمة هنا">
+<button onclick="checkWord()">افتح الصفحة</button>
+<div class="alert" id="alertMsg">الكلمة غير صحيحة! حاول مرة أخرى.</div>
+
+<script>
+let alertTimeout;
+
+function checkWord(){
+    const inputField = document.getElementById('keyInput');
+    const input = inputField.value.trim();
+    const secretWords = ["maloktyyy", "yayouyyy", "27/2"];
+    const alertMsg = document.getElementById('alertMsg');
+
+    // لو الرسالة ظاهر بالفعل، اخفيها فورًا
+    if(alertMsg.style.display === 'block'){
+        clearTimeout(alertTimeout);
+        alertMsg.style.opacity = '0';
+        setTimeout(() => { alertMsg.style.display = 'none'; }, 500);
+    }
+
+    if(secretWords.includes(input)){
+        window.open('index1.html', '_blank');
+    } else {
+        // اهتزاز الصندوق عند الخطأ
+        inputField.classList.add('shake');
+        setTimeout(() => inputField.classList.remove('shake'), 400);
+
+        // مسح الكلمة القديمة
+        inputField.value = '';
+        inputField.focus();
+
+        // عرض الرسالة من فوق
+        alertMsg.style.display = 'block';
+        setTimeout(() => { alertMsg.style.opacity = '1'; }, 50);
+
+        // اخفاء الرسالة بعد 2.5 ثانية
+        alertTimeout = setTimeout(() => {
+            alertMsg.style.opacity = '0';
+            setTimeout(() => { alertMsg.style.display = 'none'; }, 500);
+        }, 2500);
+    }
+}
+</script>
+
+</body>
+</html>
