@@ -1,0 +1,59 @@
+body {
+  margin:0;
+  padding:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:black;
+  font-family:sans-serif;
+  color:white;
+}
+
+#timer {
+  display: flex;
+  gap: 15px;  /* مسافة بين الخانات */
+}
+
+#timer span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  background-color: #ff4da6;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #ff4da6;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#timer span::after {
+  content: attr(data-label); /* اسم الوحدة */
+  font-size: 14px;
+  color: #fff;
+  margin-top: 5px;
+}
+
+@media (max-width:768px){
+  #timer span {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+  }
+  #timer span::after {
+    font-size: 12px;
+  }
+}
+
+@media (max-width:480px){
+  #timer span {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+  #timer span::after {
+    font-size: 10px;
+  }
+}
