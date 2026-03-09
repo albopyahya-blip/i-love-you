@@ -1,0 +1,368 @@
+body {
+  height: 100vh;
+}
+
+/* المنيو */
+.hamburger {
+  cursor: pointer;
+}
+
+.hamburger input {
+  display: none;
+}
+
+.hamburger svg {
+  /* The size of the SVG defines the overall size */
+  height: 2em;
+  /* Define the transition for transforming the SVG */
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menu-wrapper {
+  position: fixed;
+  top: 20px;
+  left: 20px; /* بدل right */
+  z-index: 1000;
+}
+.line {
+  fill: none;
+  stroke: black;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  /* Define the transition for transforming the Stroke */
+  transition:
+    stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+  stroke-dasharray: 12 63;
+}
+
+.hamburger input:checked + svg {
+  transform: rotate(-45deg);
+}
+
+.hamburger input:checked + svg .line-top-bottom {
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: -32.42;
+}
+.menu-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px; /* يبدأ خارج الشاشة */
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(180deg, #ff4d6d, #ff8fa3);
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: left 0.4s ease; /* حركة سلسة */
+  z-index: 1000;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.3);
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: center;
+  background: rgba(255,255,255,0.05);
+}
+
+.side-menu a:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateX(-5px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.close-menu {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.close-menu:hover {
+  color: #ffebeb;
+  transform: rotate(90deg);
+}
+
+#menu-toggle {
+  display: none;
+}
+
+/* فتح المنيو عند التحديد */
+#menu-toggle:checked ~ .side-menu {
+  left: 0; /* يظهر المنيو */
+  transition: left 0.4s ease; /* حركة سلسة */
+}
+
+.button{
+    display: flex;
+    justify-content: center; /* توسيط أفقي */
+    align-items: center; 
+    height: 100vh;
+    margin: 0;
+}
+.close-menu {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background: #222;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: right 0.4s ease;
+  border-radius: 0 15px 15px 0; /* عكس الانحناء للجانب اللي بيتحرك */
+  box-shadow: 5px 0 20px rgba(0,0,0,0.3); /* عكس الظل */
+}
+/* --------------- */
+
+/* الصوره */
+.image1{
+    display: flex;
+    justify-content: center;
+     /* توسيط أفقي */
+    align-items: center; 
+    height: 85vh;
+    margin: 0;
+}
+
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.stack {
+    width: 55%;
+    max-width: 400px;
+    transition: 0.25s ease;
+    &:hover {
+        transform: rotate(5deg);
+        .card:before {
+        transform: translatey(-2%) rotate(-4deg);
+        }
+        .card:after {
+        transform: translatey(2%) rotate(4deg);
+        }
+    }
+}
+
+.card {
+    aspect-ratio: 3 / 2;
+    border: 4px solid;
+    background-color: #fff;
+    position: relative;
+    transition: 0.15s ease;
+    cursor: pointer;
+    padding: 5% 5% 15% 5%;
+    &:before,
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border: 4px solid;
+        background-color: #fff;
+        transform-origin: center center;
+        z-index: -1;
+        transition: 0.15s ease;
+        top: 0;
+        left: 0;
+    }
+
+    &:before {
+        transform: translatey(-2%) rotate(-6deg);
+    }
+
+    &:after {
+        transform: translatey(2%) rotate(6deg);
+    }
+    }
+    .image {
+    width: 100%;
+    border: 4px solid;
+    background-color: #eee;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    }
+
+    .browser-warning {
+    margin-bottom: 4rem;
+    }
+
+    @supports (aspect-ratio: 1 / 1) {
+    .browser-warning {
+        display: none;
+    }
+}
+
+
+
+
+/* اخفاء الزر */
+
+#music-btn {
+  position: absolute;  /* يخرج من التدفق الطبيعي */
+  width: 1px;
+  height: 1px;
+  opacity: 0;          /* شفاف بالكامل */
+  pointer-events: none; /* لا يمكن الضغط عليه */
+}
+
+
+/* زر التحكم */
+
+/* The switch - the box around the speaker */
+.toggleSwitch {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(39, 39, 39);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
+}
+
+/* Hide default HTML checkbox */
+#checkboxInput {
+  display: none;
+}
+
+/* Speaker icon */
+.speaker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition-duration: 0.3s;
+  opacity: 0; /* البداية مقفول */
+}
+
+.speaker svg {
+  width: 18px;
+}
+
+/* Mute icon */
+.mute-speaker {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1; /* البداية تظهر */
+  z-index: 3;
+  transition-duration: 0.3s;
+}
+
+.mute-speaker svg {
+  width: 18px;
+}
+
+/* Checked = تشغيل */
+#checkboxInput:checked + .toggleSwitch .speaker {
+  opacity: 1;  /* تظهر أيقونة التشغيل */
+}
+
+#checkboxInput:checked + .toggleSwitch .mute-speaker {
+  opacity: 0;  /* تختفي أيقونة الـ mute */
+}
+
+/* تأثير الضغط */
+#checkboxInput:active + .toggleSwitch {
+  transform: scale(0.7);
+}
+
+/* تأثير hover */
+#checkboxInput:hover + .toggleSwitch {
+  background-color: rgb(61, 61, 61);
+}
+
+
+.toggleSwitch {
+  width: 50px;
+  height: 50px;
+  position: fixed;        /* ثابت على الشاشة */
+  bottom: 20px;           /* 20px من أسفل الشاشة */
+  right: 20px;            /* 20px من يمين الشاشة */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(39, 39, 39);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
+  z-index: 999;           /* يظل فوق كل العناصر */
+}
+
+
+
+.home-btn {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 20px;      /* نفس مسافة زرار الصوت من الأسفل */
+    left: 20px;        /* نفس مسافة زرار الصوت من اليسار */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(39, 39, 39); /* نفس اللون */
+    border-radius: 50%;               /* دائري زي زرار الصوت */
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.13); /* نفس الظل */
+    z-index: 9999; /* فوق كل العناصر */
+    font-size: 22px; /* حجم الأيقونة قريب من زرار الصوت */
+    color: white;
+}
+
+/* تأثير الضغط */
+.home-btn:active {
+    transform: scale(0.7);
+}
+
+/* تأثير hover */
+.home-btn:hover {
+    background-color: rgb(61, 61, 61); /* نفس تأثير hover */
+}
