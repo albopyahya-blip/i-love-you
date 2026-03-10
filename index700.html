@@ -3,51 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon</title>
+<title>For You ❤️</title>
+
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    flex-direction: column;
-  }
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0d0d0d,#000);
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+    color:white;
+}
 
-  /* حلقة تحميل متوهجة */
-  .loader {
-    width: 100px;
-    height: 100px;
-    border: 10px solid rgba(255,255,255,0.1);
-    border-top: 10px solid #ff4081; /* اللون المتوهج */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    box-shadow: 0 0 20px #ff4081;
-    margin-bottom: 30px;
-  }
+.container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+#text{
+    font-size:34px;
+    max-width:700px;
+    min-height:120px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
 
-  /* كلمة Soon بدون توهج */
-  .soon {
-    font-size: 3em;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: #ff4081; /* لون ثابت */
-  }
+button{
+    padding:12px 50px;
+    font-size:20px;
+    border-radius:40px;
+    border:1px solid #ff2e63;
+    background:transparent;
+    color:#ff2e63;
+    cursor:pointer;
+    transition:0.25s;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#ff2e63;
+    color:white;
+    transform:scale(1.05);
+}
+
+.heart{
+    position:absolute;
+    color:#ff2e63;
+    font-size:26px;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{
+    transform:translateY(0);
+    opacity:1;
+}
+100%{
+    transform:translateY(-900px);
+    opacity:0;
+}
+}
+
+@media(max-width:600px){
+
+    #text{
+        font-size:20px;      /* حجم الخط أصغر على الموبايل */
+        padding:0 20px;
+    }
+
+    button{
+        font-size:18px;       /* حجم الخط داخل الزر أصغر */
+        padding:12px 35px;    /* تصغير حجم الزر */
+        margin-top:15px;      /* مسافة بين النص والزر */
+    }
+
+}
 </style>
 </head>
-<body>
 
-<div class="loader"></div>
-<div class="soon">Soon</div>
+<body>
+<div class="container">
+    <div id="text"></div>
+    <button onclick="next()">Next</button>
+</div>
+
+<script>
+let messages=[
+"On a completely ordinary day and",
+"I met someone and",
+"who changed my life and",
+"Someone who made me laugh and",
+"for no reason and",
+"And made my heart beat and",
+"in a different way and",
+"His voice and smile and",
+"make everything better and",
+"Even the simplest moments and",
+"with him make me happy and",
+"Every word he says and",
+"Every look and",
+"Every little move and",
+"Makes me feel alive and",
+"No matter what happens around me and",
+"With him the world and",
+"Feels beautiful and",
+"And the truth is and",
+"I love you ❤️"
+];
+
+let index=0;
+let text=document.getElementById("text");
+
+function typeWriter(message,i=0){
+    if(i < message.length){
+        text.innerHTML += message.charAt(i);
+        setTimeout(()=>typeWriter(message,i+1),40);
+    } else {
+        if(index === messages.length-1){
+            startHearts();
+            document.querySelector("button").style.display="none";
+        }
+    }
+}
+
+typeWriter(messages[0]);
+
+function next(){
+    index++;
+    if(index < messages.length){
+        text.innerHTML="";
+        typeWriter(messages[index]);
+    }
+}
+
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.innerHTML="❤️";
+        heart.className="heart";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.top="100vh";
+        document.body.appendChild(heart);
+        setTimeout(()=>{ heart.remove(); },5000);
+    },250);
+}
+</script>
 
 </body>
 </html>
