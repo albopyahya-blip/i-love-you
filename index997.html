@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Since We Met ❤️</title>
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffe6e9, #ffccd5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: #ff4da6;
+  transition: all 0.3s ease;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 25px 20px;
+  border-radius: 20px;
+  background: rgba(53, 50, 50, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.2);
+  max-width: 120px;
+  min-width: 80px;
+  color: #fff;
+}
+
+.time-number {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.time-label {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #fff;
+}
+
+/* ======= Fixed buttons at bottom center ======= */
+.sub-btn-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+
+.sub-btn {
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff4da6;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+@media (max-width:480px){
+  .sub-btn { width: 40px; height: 40px; font-size:16px; }
+  .sub-btn-container { gap: 15px; }
+  .time-number { font-size: 20px; }
+  .time-label { font-size: 11px; }
+  .time-box { min-width: 60px; padding: 6px; }
+  .box { padding: 15px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1 id="title">Since We Met</h1>
+  <div class="box" id="timer-box">
+    <div class="time-box" id="years-box">
+      <div class="time-number" id="years"></div>
+      <div class="time-label">Years</div>
+    </div>
+    <div class="time-box" id="months-box">
+      <div class="time-number" id="months"></div>
+      <div class="time-label">Months</div>
+    </div>
+    <div class="time-box" id="days-box">
+      <div class="time-number" id="days"></div>
+      <div class="time-label">Days</div>
+    </div>
+    <div class="time-box" id="hours-box">
+      <div class="time-number" id="hours"></div>
+      <div class="time-label">Hours</div>
+    </div>
+    <div class="time-box" id="minutes-box">
+      <div class="time-number" id="minutes"></div>
+      <div class="time-label">Minutes</div>
+    </div>
+    <div class="time-box" id="seconds-box">
+      <div class="time-number" id="seconds"></div>
+      <div class="time-label">Seconds</div>
+    </div>
+  </div>
+</div>
+
+<!-- Buttons container -->
+<div class="sub-btn-container">
+  <button class="sub-btn sub-btnY">Y</button>
+  <button class="sub-btn sub-btnHeart">💖</button>
+  <button class="sub-btn sub-btnM">M</button>
+</div>
+
+<script>
+let startDate = new Date("2026-01-20 00:00:00");
+const titleEl = document.getElementById("title");
+
+const yearsEl = document.getElementById("years");
+const monthsEl = document.getElementById("months");
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
+
+const yearsBox = document.getElementById("years-box");
+const monthsBox = document.getElementById("months-box");
+const daysBox = document.getElementById("days-box");
+const hoursBox = document.getElementById("hours-box");
+const minutesBox = document.getElementById("minutes-box");
+const secondsBox = document.getElementById("seconds-box");
+
+function calculateDiff(start){
+  let now = new Date();
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+  let days = now.getDate() - start.getDate();
+  let hours = now.getHours() - start.getHours();
+  let minutes = now.getMinutes() - start.getMinutes();
+  let seconds = now.getSeconds() - start.getSeconds();
+
+  if(seconds<0){ seconds+=60; minutes--; }
+  if(minutes<0){ minutes+=60; hours--; }
+  if(hours<0){ hours+=24; days--; }
+  if(days<0){
+    let prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+    days += prevMonth;
+    months--;
+  }
+  if(months<0){ months+=12; years--; }
+
+  yearsEl.innerText = years;
+  monthsEl.innerText = months;
+  daysEl.innerText = days;
+  hoursEl.innerText = hours;
+  minutesEl.innerText = minutes;
+  secondsEl.innerText = seconds;
+
+  // السنين تختفي لو صفر، والباقي دايمًا ظاهر
+  yearsBox.style.display = (years > 0) ? "flex" : "none";
+  monthsBox.style.display = "flex";
+  daysBox.style.display = "flex";
+  hoursBox.style.display = "flex";
+  minutesBox.style.display = "flex";
+  secondsBox.style.display = "flex";
+}
+
+function updateTimer(){ calculateDiff(startDate); }
+setInterval(updateTimer,1000);
+updateTimer();
+
+// Change title and start date
+document.querySelector(".sub-btnHeart").addEventListener("click",()=>{
+  startDate = new Date("2026-01-20 00:00:00");
+  titleEl.innerText = "Since We Met";
+});
+document.querySelector(".sub-btnM").addEventListener("click",()=>{
+  startDate = new Date("2008-04-02 00:00:00");
+  titleEl.innerText = "maloktyyy";
+});
+document.querySelector(".sub-btnY").addEventListener("click",()=>{
+  startDate = new Date("2006-08-29 00:00:00");
+  titleEl.innerText = "yayouyyy";
+});
+</script>
+
+</body>
+</html>
