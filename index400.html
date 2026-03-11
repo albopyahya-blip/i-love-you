@@ -5,17 +5,151 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>memories</title>
 <style>
+  /* ── عام ── */
   body {
-    margin:0;
-    padding:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:black;
-    font-family:sans-serif;
-    color:white;
-    font-size:50px;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    font-size: 50px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* ── تايمر ── */
+  #timer {
+    color: var(--text-main);
+  }
+
+  /* ── ألوان الوضع الليلي والفاتح ── */
+  :root {
+    --bg-dark: #111111;
+    --bg-side: #333333;
+    --bg-light: #ffe0f0;
+
+    --text-main: #eeeeee;
+    --text-primary: #ff66aa;
+
+    --btn-main: #ff77bb;
+    --btn-hover: #ff99cc;
+
+    --accent: #70b5ff;
+  }
+
+  [data-theme="light"] {
+  --bg-dark: #ffccd5;
+    --bg-side: #ffffff;
+    --bg-light: #fff0f5;
+
+    --text-main: #222222;
+    --text-primary: #e6007a;
+
+    --btn-main: #ff77bb;
+    --btn-hover: #ff99cc;
+
+    --accent: #4d94ff;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+  }
+
+  button {
+    background-color: var(--btn-main);
+    color: var(--text-main);
+  }
+
+  button:hover {
+    background-color: var(--btn-hover);
+  }
+
+  /* ── مفتاح الوضع ── */
+  .switch {
+    font-size: 15px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    width: 3.2em;
+    height: 1.8em;
+    border-radius: 30px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    z-index: 2000;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-side);
+    transition: 0.4s;
+    border-radius: 30px;
+    overflow: hidden;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    left: 0.4em;
+    bottom: 0.4em;
+    transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+    background-color: var(--btn-main);
+    box-shadow: inset 6px -3px 0px 0px #fff;
+  }
+
+  .switch input:checked + .slider {
+    background-color: var(--accent);
+  }
+
+  .switch input:checked + .slider:before {
+    transform: translateX(1.4em);
+    box-shadow: inset 12px -3px 0px 12px #ffcf48;
+  }
+
+  /* النجوم */
+  .star {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    transition: all 0.4s;
+  }
+  .star_1 { left: 2em; top: 0.4em; }
+  .star_2 { left: 1.8em; top: 1em; }
+  .star_3 { left: 2.4em; top: 0.7em; }
+
+  .switch input:checked ~ .slider .star {
+    opacity: 0;
+  }
+
+  /* السحابة */
+  .cloud {
+    width: 2.8em;
+    position: absolute;
+    bottom: -1em;
+    left: -0.9em;
+    opacity: 0;
+    transition: all 0.4s;
+  }
+
+  .switch input:checked ~ .slider .cloud {
+    opacity: 1;
   }
 </style>
 </head>
@@ -23,21 +157,50 @@
 
 <div id="timer">5</div>
 
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider">
+    <span class="star star_1"></span>
+    <span class="star star_2"></span>
+    <span class="star star_3"></span>
+    <span class="cloud">☁️</span>
+  </span>
+</label>
+
 <script>
-let totalSeconds = 5; // تجربة 3 ثواني
-const timerEl = document.getElementById("timer");
+  // ── تايمر عد تنازلي ──
+  let totalSeconds = 5;
+  const timerEl = document.getElementById("timer");
 
-function updateTimer() {
-  timerEl.innerText = totalSeconds;
-  if(totalSeconds === 0){
-    window.location.href = "index401.html"; // هنا تضع الصفحة اللي تحب تروح لها
-    clearInterval(timerInterval);
+  function updateTimer() {
+    timerEl.innerText = totalSeconds;
+    if(totalSeconds === 0){
+      window.location.href = "index401.html";
+      clearInterval(timerInterval);
+    }
+    totalSeconds--;
   }
-  totalSeconds--;
-}
 
-const timerInterval = setInterval(updateTimer, 1000);
-updateTimer(); // لتحديث أولي
+  const timerInterval = setInterval(updateTimer, 1000);
+  updateTimer();
+
+  // ── الوضع الليلي / الفاتح ──
+  const themeSwitch = document.getElementById('themeSwitch');
+  const html = document.documentElement;
+
+  // قراءة الوضع من التخزين المحلي أو افتراضيًا داكن
+  let currentTheme = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', currentTheme);
+
+  // تعيين حالة المفتاح
+  themeSwitch.checked = currentTheme === 'light';
+
+  // عند تغير المفتاح
+  themeSwitch.addEventListener('change', () => {
+    const newTheme = themeSwitch.checked ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
 </script>
 
 </body>

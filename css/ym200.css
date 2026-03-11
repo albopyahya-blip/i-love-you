@@ -1,9 +1,9 @@
 :root {
-  --bg-dark: #111111;      /* مثال: خلفية عامة داكنة جديدة */
+    --bg-dark: #111111;    /* مثال: خلفية عامة داكنة جديدة */
   --bg-side: #333333;      /* المنيو الجانبي */
   --bg-light: #ffe0f0;     /* صفحات خاصة */
   
-  --text-main: #eeeeee;    /* نصوص عامة */
+  --text-main: #4d4b4b;    /* نصوص عامة */
   --text-primary: #ff66aa; /* نصوص/عناوين رئيسية */
   
   --btn-main: #ff77bb;     /* زرار رئيسي */
@@ -13,7 +13,7 @@
 }
 
 [data-theme="light"] {
-  --bg-dark: #f8f8ff;
+  --bg-dark: #ffccd5;
   --bg-side: #ffffff;
   --bg-light: #fff0f5;
   
