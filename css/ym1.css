@@ -1,10 +1,44 @@
+/* ── تعريف الألوان (سهولة التعديل) ── */
+:root {
+  /* الخلفيات */
+  --bg-dark: #000000;      /* خلفية عامة داكنة */
+  --bg-side: #222;         /* خلفية المنيو الجانبي/البطاقات داكنة */
+  --bg-light: #fff0f5;     /* خلفية صفحات خاصة */
+
+  /* النصوص */
+  --text-main: #ffffff;    /* نصوص عامة */
+  --text-primary: #f472b6; /* نصوص/عناوين رئيسية */
+
+  /* الأزرار */
+  --btn-main: #ff69b4;     /* لون زرار رئيسي */
+  --btn-hover: #ff85c1;    /* لون زرار عند hover */
+
+  /* تباين / أيقونات */
+  --accent: #60a5fa;       /* تباين للأيقونات/ highlights */
+}
+
+/* ── الوضع النهاري (Light Mode) ── */
+[data-theme="light"] {
+  --bg-dark: #f0f0f5;      /* خلفية عامة فاتحة */
+  --bg-side: #ffffff;       /* خلفية المنيو الجانبي/البطاقات فاتحة */
+  --bg-light: #ffe4f1;      /* خلفية صفحات خاصة */
+
+  --text-main: #1f2937;     /* نصوص عامة داكنة */
+  --text-primary: #d63384;  /* نصوص/عناوين رئيسية */
+
+  --btn-main: #ff69b4;      /* لون زرار رئيسي */
+  --btn-hover: #ff85c1;     /* لون زرار عند hover */
+
+  --accent: #3b82f6;        /* تباين للأيقونات/ highlights */
+}
+
+/* ── باقي الكود يستخدم المتغيرات أعلاه ── */
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-dark);
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
-/* الهامبرجر */
 .hamburger {
     cursor: pointer;
 }
@@ -14,13 +48,13 @@ body {
 }
 
 .hamburger svg {
-    height: 1.8em; /* أصغر قليلًا */
+    height: 1.8em;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .line {
     fill: none;
-    stroke: black;
+    stroke: var(--text-main);
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 3;
@@ -48,14 +82,13 @@ body {
     z-index: 1000;
 }
 
-/* القائمة الجانبية */
 .side-menu {
     position: fixed;
     top: 0;
     left: -250px;
     width: 250px;
     height: 100vh;
-    background: linear-gradient(180deg, #ff4d6d, #ff8fa3);
+    background: var(--bg-side);
     padding-top: 70px;
     display: flex;
     flex-direction: column;
@@ -67,9 +100,9 @@ body {
 }
 
 .side-menu a {
-    color: white;
+    color: var(--text-main);
     text-decoration: none;
-    font-size: 16px; /* أصغر قليلًا */
+    font-size: 16px;
     padding: 10px 18px;
     border-radius: 10px;
     font-weight: 600;
@@ -84,23 +117,21 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* زر الإغلاق */
 .close-menu {
     position: absolute;
     top: 15px;
     left: 15px;
-    font-size: 22px; /* أصغر */
-    color: white;
+    font-size: 22px;
+    color: var(--text-main);
     cursor: pointer;
     transition: transform 0.3s, color 0.3s;
 }
 
 .close-menu:hover {
-    color: #ffebeb;
+    color: var(--btn-hover);
     transform: rotate(90deg);
 }
 
-/* فتح القائمة */
 #menu-toggle {
     display: none;
 }
@@ -109,7 +140,6 @@ body {
     left: 0;
 }
 
-/* الزر الرئيسي */
 .button {
     display: flex;
     justify-content: center;
@@ -118,40 +148,38 @@ body {
     margin: 0;
 }
 
-/* أزرار عامة */
 button {
-    --main-color: rgb(213, 46, 46);
-    --main-bg-color: rgba(213, 46, 46, 0.36);
-    --pattern-color: rgba(213, 46, 46, 0.073);
+    --main-color: var(--btn-main);
+    --main-bg-color: rgba(255, 105, 180, 0.36);
+    --pattern-color: rgba(255, 105, 180, 0.073);
 
     filter: hue-rotate(0deg);
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 0.4rem; /* أقل قليلًا للتناسق */
-    background: radial-gradient(circle, var(--main-bg-color) 0%, rgba(0, 0, 0, 0) 95%),
+    letter-spacing: 0.4rem;
+    background: radial-gradient(circle, var(--main-bg-color) 0%, rgba(0,0,0,0) 95%),
                 linear-gradient(var(--pattern-color) 1px, transparent 1px),
                 linear-gradient(to right, var(--pattern-color) 1px, transparent 1px);
     background-size: cover, 15px 15px, 15px 15px;
     background-position: center center, center center, center center;
-    border-image: radial-gradient(circle, var(--main-color) 0%, rgba(0, 0, 0, 0) 100%) 1;
+    border-image: radial-gradient(circle, var(--main-color) 0%, rgba(0,0,0,0) 100%) 1;
     border-width: 1px 0 1px 0;
     color: var(--main-color);
-    padding: 0.8rem 2.5rem; /* أصغر على الموبايل */
+    padding: 0.8rem 2.5rem;
     font-weight: 700;
-    font-size: 1.3rem; /* أصغر قليلًا */
+    font-size: 1.3rem;
     transition: background-size 0.2s ease-in-out;
 }
 
 button:hover {
     background-size: cover, 10px 10px, 10px 10px;
-    color: rgb(255, 89, 0);
+    color: var(--accent);
 }
 
 button:active {
     filter: hue-rotate(250deg);
 }
 
-/* استجابة الموبايل */
 @media screen and (max-width: 480px) {
     .side-menu {
         width: 200px;

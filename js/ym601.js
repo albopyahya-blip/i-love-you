@@ -28,23 +28,23 @@
 const CONFIG = {
   // ── Recipient Info ────────────────────────────────────────────
   name: "maloktyyy",
-  photo: "./img/irene.jpg",       // Place your photo in the img/ folder
+  photo: "./img/IMG_7783.jpg",       // Place your photo in the img/ folder
   music: "./sound/Albumaty.Com_mhmd_sayd_fy_ayny.mp3",      // Place your music in the music/ folder
 
   // ── Theme Colors ──────────────────────────────────────────────
   // A toggle button lets the viewer switch between dark & light mode.
   colors: {
-    primary: "#f472b6",           // Main accent color (rose pink)
-    accent: "#60a5fa",            // Secondary accent color (sky blue)
+    primary: "#ff77bb",          // لون الزرار الرئيسي
+    accent: "#ff99cc",           // لون الأيقونات / accent
     dark: {
-      background: "#0f172a",      // Slate 900
-      text: "#f1f5f9",            // Slate 100
+      background: "#111111",     // خلفية الوضع الداكن
+      text: "#eeeeee",           // نص الوضع الداكن
     },
     light: {
-      background: "#fafaf9",      // Stone 50
-      text: "#1e293b",            // Slate 800
+      background: "#f8f8ff",     // خلفية الوضع الفاتح
+      text: "#222222",           // نص الوضع الفاتح
     },
-  },
+},
 
   // ── Default Color Mode ────────────────────────────────────────
   // Options: "dark" or "light"
@@ -99,7 +99,7 @@ const CONFIG = {
     },
     {
       type: "profile",
-      wishTitle: "Happy Birthday!",
+      wishTitle: "HappyBirthday!",
       wishText: "May the js.prototypes always be with you! ;)",
     },
     {

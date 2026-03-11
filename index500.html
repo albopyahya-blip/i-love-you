@@ -3,98 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>questions</title>
+<title>Questions</title>
+
 <style>
-    
-body{
-    background:black;
-    color:white;
-    height:100vh;
-    margin:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    font-family:Arial;
+:root {
+  --bg-dark: #111111;
+  --bg-side: #ffffff21;
+  --bg-light: #ffe0f0;
+  
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
+  
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  
+  --accent: #70b5ff;
+}
+
+[data-theme="light"] {
+  --bg-dark: #f8f8ff;
+  --bg-side: #000000d6;
+  --bg-light: #fff0f5;
+  
+  --text-main: #ffffff;
+  --text-primary: #e6007a;
+  
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  
+  --accent: #4d94ff;
+}
+
+/* body يعتمد على المتغيرات */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  transition: background 0.4s, color 0.4s;
 }
 
 .quiz-container {
-    max-width: 600px;
-    width: 90%;
-    text-align: center;
-    padding: 20px;
-    margin-bottom: 40px;
-    border-radius: 12px;
-    background: #111;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  background-color: var(--bg-side);
+  transition: background 0.4s;
 }
 
 #question {
-    font-size: 28px;
-    margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 #options {
-    padding: 0;
+  padding: 0;
 }
 
 #options li {
-    list-style: none;
-    margin: 12px 0;
-    padding: 14px;
-    background: #ff4da6;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 20px;
-    color: white;
+  list-style: none;
+  margin: 12px 0;
+  padding: 14px;
+  background-color: var(--btn-main);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--text-main);
+  transition: background 0.3s, color 0.3s;
+}
+
+#options li:hover {
+  background-color: var(--btn-hover);
 }
 
 #feedback {
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 #retryBtn {
-    padding:18px 40px;
-    font-size:22px;
-    border:none;
-    border-radius:8px;
-    background:#ff4da6;
-    color:white;
-    cursor:pointer;
-    display:none;
-    margin-top:20px;
+  padding: 18px 40px;
+  font-size: 22px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--btn-main);
+  color: var(--text-main);
+  cursor: pointer;
+  display: none;
+  margin-top: 20px;
+  transition: background 0.3s, color 0.3s;
 }
+
+/* Switch */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;
+  height: 1.8em;
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* نجوم وسحابة */
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  transition: all 0.4s;
+}
+.star_1 { left: 2em; top: 0.4em; }
+.star_2 { left: 1.8em; top: 1em; }
+.star_3 { left: 2.4em; top: 0.7em; }
+
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
+
+.cloud {
+  width: 2.8em;
+  position: absolute;
+  bottom: -1em;
+  left: -0.9em;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
+}
+
+/* Responsive */
 @media (max-width:600px){
-
-.quiz-container{
-    max-width:320px;
-    width:90%;
-    padding:12px;
+  .quiz-container{
+      max-width:320px;
+      width:90%;
+      padding:12px;
+  }
+  #question{
+      font-size:20px;
+  }
+  #options li{
+      font-size:15px;
+      padding:10px;
+  }
+  #feedback{
+      font-size:16px;
+  }
+  #retryBtn{
+      font-size:16px;
+      padding:10px 20px;
+  }
 }
-
-#question{
-    font-size:20px;
-}
-
-#options li{
-    font-size:15px;
-    padding:10px;
-}
-
-#feedback{
-    font-size:16px;
-}
-
-#retryBtn{
-    font-size:16px;
-    padding:10px 20px;
-}
-
-}
-
 </style>
-
 </head>
 <body>
 
@@ -104,6 +220,17 @@ body{
   <p id="feedback"></p>
   <button id="retryBtn" onclick="retry()">إعادة المحاولة</button>
 </div>
+
+<!-- Switch -->
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider">
+    <span class="star star_1"></span>
+    <span class="star star_2"></span>
+    <span class="star star_3"></span>
+    <span class="cloud">☁️</span>
+  </span>
+</label>
 
 <script>
 const questions = [
@@ -123,7 +250,6 @@ function shuffleArray(array) {
     return array;
 }
 
-// خلط ترتيب الأسئلة
 shuffleArray(questions);
 
 let currentQuestion = 0;
@@ -140,7 +266,6 @@ function loadQuestion() {
 
     if(currentQuestion >= questions.length){
         if(score === questions.length){
-            // لو كل الأسئلة صح، يروح لصفحة success.html
             window.location.href = "index501.html";
         } else {
             feedbackEl.textContent = "انتهت الأسئلة اضغط على إعادة المحاولة للعب مرة أخرى";
@@ -191,6 +316,22 @@ function retry(){
 }
 
 loadQuestion();
+
+// ===== الوضع الليلي / النهاري =====
+const themeSwitch = document.getElementById('themeSwitch');
+const html = document.documentElement;
+
+// تحميل الوضع السابق
+let currentTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', currentTheme);
+themeSwitch.checked = currentTheme === 'light';
+
+// عند التبديل
+themeSwitch.addEventListener('change', () => {
+    const newTheme = themeSwitch.checked ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+});
 </script>
 
 </body>

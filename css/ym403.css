@@ -1,3 +1,25 @@
+:root {
+  --bg-dark: #111111;
+  --bg-side: #333333;
+  --bg-light: #ffe0f0;
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  --accent: #70b5ff;
+}
+
+[data-theme="light"] {
+  --bg-dark: #f8f8ff;
+  --bg-side: #ffffff;
+  --bg-light: #fff0f5;
+  --text-main: #222222;
+  --text-primary: #e6007a;
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  --accent: #4d94ff;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -5,8 +27,10 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #1a1a1a, #000000);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
   font-family: 'Arial', sans-serif;
+  transition: background 0.3s, color 0.3s;
 }
 
 .book {
@@ -37,21 +61,20 @@ body {
   object-fit: cover;
 }
 
-/* وضع الأزرار تحت الصورة */
 .buttons {
   position: absolute;
-  bottom: 15px;  /* تحت الصورة */
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 20px;     /* مسافة بين الزرين */
+  gap: 20px;
   z-index: 20;
 }
 
 .buttons button {
-  background: rgba(255,77,166,0.8);
+  background: var(--btn-main);
   border: none;
-  color: white;
+  color: var(--text-main);
   font-size: 20px;
   padding: 10px 20px;
   cursor: pointer;
@@ -60,11 +83,10 @@ body {
 }
 
 .buttons button:hover {
-  background: rgba(255,77,166,1);
+  background: var(--btn-hover);
   transform: scale(1.05);
 }
 
-/* دعم الموبايل */
 @media (max-width:768px){
   .book { width: 300px; height: 400px; }
   .buttons button { font-size: 16px; padding: 8px 16px; }

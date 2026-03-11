@@ -3,18 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>to maloktyyy</title>
-
 <style>
+:root {
+  --bg-dark: #111111;
+  --bg-side: #ffffff21;
+  --bg-light: #ffe0f0;
+  
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
+  
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  
+  --accent: #70b5ff;
+}
+
+[data-theme="light"] {
+  --bg-dark: #f8f8ff;
+  --bg-side: #000000d6;
+  --bg-light: #fff0f5;
+  
+  --text-main: #000000;
+  --text-primary: #e6007a;
+  
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  
+  --accent: #4d94ff;
+}
+
+/* body يعتمد على المتغيرات */
 body{
-    background:black;
-    color:white;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
     margin:0;
     padding:60px 0;
     display:flex;
     justify-content:center;
-    align-items:flex-start; /* يبدأ من فوق */
+    align-items:flex-start;
     flex-direction:column;
     font-family:Arial;
+    transition: background 0.4s, color 0.4s;
 }
 
 /* النص */
@@ -23,43 +52,140 @@ body{
     max-width:600px;
     text-align:center;
     line-height:1.8;
-    border-left:3px solid #ff4da6;
-    border-right:3px solid #ff4da6;
+    border-left:3px solid var(--btn-main);
+    border-right:3px solid var(--btn-main);
     padding:20px;
-    margin:150px auto 40px; /* يخليه قريب من النص */
+    margin:150px auto 40px;
+    transition: border-color 0.4s;
 }
 
-/* الزرار */
+/* الزرار الأساسي */
 button{
-    padding:18px 40px; /* حجم أكبر */
-    font-size:22px;    /* تكبير الخط */
+    padding: 20px 50px;       /* تكبير الحجم */
+    font-size: 26px;          /* تكبير الخط */
     border:none;
-    border-radius:8px;
-    background:#ff4da6;
-    color:white;
+    border-radius:12px;       /* حواف أكبر */
+    background: var(--btn-main);
+    color: var(--text-main);
     cursor:pointer;
     display:none;
-    transition:0.3s;
+    transition: 0.3s;
 }
 
 button:hover{
-    background:#ff2f92;
+    background: var(--btn-hover);
+    transform: scale(1.08);   /* تأثير بسيط عند المرور */
+}
+
+
+/* Switch Container */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;
+  height: 1.8em;
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* النجوم */
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  transition: all 0.4s;
+}
+.star_1 { left: 2em; top: 0.4em; }
+.star_2 { left: 1.8em; top: 1em; }
+.star_3 { left: 2.4em; top: 0.7em; }
+
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
+
+/* السحابة */
+.cloud {
+  width: 2.8em;
+  position: absolute;
+  bottom: -1em;
+  left: -0.9em;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
 }
 </style>
 </head>
-
 <body>
 
 <div id="text"></div>
 
-<!-- <button id="btn" onclick="window.location.href='index502.html'">
-soon
-</button> -->
+<!-- الزرار (يمكن إظهاره لاحقًا إذا أردت) -->
+<button id="btn" onclick="window.location.href='index502.html'">soon</button>
+
+<!-- Switch -->
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider">
+    <span class="star star_1"></span>
+    <span class="star star_2"></span>
+    <span class="star star_3"></span>
+    <span class="cloud">☁️</span>
+  </span>
+</label>
 
 <script>
-
+// كتابة النص تدريجيًا
 let message = "I just want to tell you something that comes straight from my heart Since you came into my life many things have changed for the better You became someone very special to me someone whose presence makes my days brighter and my heart calmer Sometimes I find myself thinking about you for no reason and suddenly I smile Just knowing that you exist in my life gives me a feeling of happiness that is hard to explain Your smile means a lot to me and your voice has a way of making everything feel okay I want to promise you something very important No matter what happens in life I will always try to be there for you Through the happy days and the difficult ones I will stand by your side and support you When you feel tired or sad I want to be the person who reminds you how strong and amazing you are When life becomes difficult I want to be the one who stays with you and helps you go through it You are not just someone I love you are someone I truly care about Someone whose happiness matters to me and someone I want to see smiling and feeling safe I promise that I will always respect you care about you and appreciate you I will always try to make you feel valued and important because to me you really are And no matter how much time passes or how life changes I want you to remember one thing you will always have someone who cares about you deeply and wishes you nothing but happiness Having you in my life is something I am truly grateful for and I hope we can continue sharing many beautiful moments together";
-
 let i = 0;
 let speed = 40;
 
@@ -72,9 +198,23 @@ function typeWriter(){
         document.getElementById("btn").style.display = "block";
     }
 }
-
 typeWriter();
 
+// ===== الوضع الليلي / النهاري =====
+const themeSwitch = document.getElementById('themeSwitch');
+const html = document.documentElement;
+
+// تحميل الوضع السابق
+let currentTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', currentTheme);
+themeSwitch.checked = currentTheme === 'light';
+
+// عند التبديل
+themeSwitch.addEventListener('change', () => {
+    const newTheme = themeSwitch.checked ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+});
 </script>
 
 </body>

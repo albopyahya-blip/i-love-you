@@ -1,75 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026/3/2</title>
-<link rel="stylesheet" href="css/ym403.css">
-</head>
-<body>
+<style>:root {
+  --bg-dark: #111111;      /* مثال: خلفية عامة داكنة جديدة */
+  --bg-side: #333333;      /* المنيو الجانبي */
+  --bg-light: #ffe0f0;     /* صفحات خاصة */
+  
+  --text-main: #eeeeee;    /* نصوص عامة */
+  --text-primary: #ff66aa; /* نصوص/عناوين رئيسية */
+  
+  --btn-main: #ff77bb;     /* زرار رئيسي */
+  --btn-hover: #ff99cc;    /* hover */
+  
+  --accent: #70b5ff;       /* أيقونات */
+}
 
-<div class="book">
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-09 at 7.38.36 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.46.52 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.36 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.44 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.48.04 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.24 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.28 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.31 PM.jpeg" alt=>
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.21 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.33 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.48.16 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.38 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.40 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.47.49 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.48.07 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.48.13 PM.jpeg" alt="صورة 1">
-  </div>
-  <div class="page">
-    <img src="img/WhatsApp Image 2026-03-08 at 1.48.15 PM.jpeg" alt="صورة 1">
-  </div>
+[data-theme="light"] {
+  --bg-dark: #f8f8ff;
+  --bg-side: #ffffff;
+  --bg-light: #fff0f5;
   
+  --text-main: #222222;
+  --text-primary: #e6007a;
   
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
   
+  --accent: #4d94ff;
+}
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+}
+
+button {
+  background-color: var(--btn-main);
+  color: var(--text-main);
+}
+
+button:hover {
+  background-color: var(--btn-hover);
+}
+body {
+  height: 100vh;
+}
+</style>
 
 
-  <div class="buttons">
-    <button class="prev">◀</button>
-    <button class="next">▶</button>
-  </div>
-</div>
+
+
 
 <label class="switch">
   <input type="checkbox" id="themeSwitch">
@@ -185,7 +161,3 @@ themeSwitch.addEventListener('change', () => {
   localStorage.setItem('theme', darkMode ? 'dark' : 'light');
 });
 </script>
-
-<script src="js/ym404.js"></script>
-</body>
-</html>
