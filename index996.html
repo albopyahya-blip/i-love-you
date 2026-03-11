@@ -6,71 +6,190 @@
 <title>أذكار المسلم</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
-    body {
-        font-family: 'Cairo', sans-serif;
-        background: linear-gradient(135deg, #ffe6e9, #ffccd5);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        margin: 0;
-    }
-    h1 {
-        text-align: center;
-        color: #ff4c6d;
-        font-size: 2.2em; /* تم تكبير حجم العنوان */
-        margin-bottom: 30px;
-    }
-    .azkar-box {
-        background: #333;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 5px 5px 20px rgba(0,0,0,0.3);
-        width: 350px;
-        height: 220px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-        white-space: pre-line; /* يسمح بعرض السطور الجديدة */
-    }
-    #zekr {
-        font-size: 1.4em; /* تم تكبير حجم النص */
-        color: #fff;
-        line-height: 1.6; /* جعل المسافة بين السطور أكبر قليلاً */
-        word-break: break-word;
-    }
-    button {
-        padding: 12px 25px;
-        font-size: 1.1em; /* تكبير حجم الزر قليلاً */
-        background: #ff4d6d;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background 0.3s;
-    }
-    button:hover {
-        background: #ff8fa3;
-    }
-    @media (max-width: 450px) {
-        h1 { font-size: 1.8em; }
-        #zekr { font-size: 1.2em; }
-        .azkar-box { width: 90%; height: 220px; }
-        button { width: 100%; font-size: 1em; }
-    }
+:root {
+  /* ألوان الوضع الليلي */
+  --bg-dark: #111111;
+  --bg-side: #333333;
+  --bg-light: #ffe0f0;
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  --accent: #70b5ff;
+}
+
+/* ألوان الوضع النهاري */
+[data-theme="light"] {
+  --bg-dark: #ffccd5;
+  --bg-side: #ffffff;
+  --bg-light: #fff0f5;
+  --text-main: #222222;
+  --text-primary: #e6007a;
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+  --accent: #4d94ff;
+}
+
+/* أسلوب عام */
+body {
+  font-family: 'Cairo', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 2.2em;
+  margin-bottom: 30px;
+}
+
+.azkar-box {
+  background: var(--bg-side);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 5px 5px 20px rgba(0,0,0,0.3);
+  width: 350px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  white-space: pre-line;
+  transition: background-color 0.3s;
+}
+
+#zekr {
+  font-size: 1.4em;
+  color: var(--text-main);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 1.1em;
+  background: var(--btn-main);
+  color: var(--text-main);
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--btn-hover);
+}
+
+@media (max-width: 450px) {
+  h1 { font-size: 1.8em; }
+  #zekr { font-size: 1.2em; }
+  .azkar-box { width: 90%; height: 220px; }
+  button { width: 100%; font-size: 1em; }
+}
+
+/* ---- Switch ---- */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;
+  height: 1.8em;
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input { display: none; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 4px; height: 4px;
+  transition: all 0.4s;
+}
+
+.star_1 { left: 2em; top: 0.4em; }
+.star_2 { left: 1.8em; top: 1em; }
+.star_3 { left: 2.4em; top: 0.7em; }
+
+.switch input:checked ~ .slider .star { opacity: 0; }
+
+.cloud {
+  width: 2.8em;
+  position: absolute;
+  bottom: -1em;
+  left: -0.9em;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.switch input:checked ~ .slider .cloud { opacity: 1; }
+
 </style>
 </head>
 <body>
+
 <div>
-    <h1>أذكار المسلم</h1>
-    <div class="azkar-box">
-        <p id="zekr">اضغط على الزر لعرض ذكر عشوائي</p>
-        <button onclick="showZekr()">اذكر الله</button>
-    </div>
+  <h1>أذكار المسلم</h1>
+  <div class="azkar-box">
+    <p id="zekr">اضغط على الزر لعرض ذكر عشوائي</p>
+    <button onclick="showZekr()">اذكر الله</button>
+  </div>
 </div>
+
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider">
+    <span class="star star_1"></span>
+    <span class="star star_2"></span>
+    <span class="star star_3"></span>
+    <span class="cloud">☁️</span>
+  </span>
+</label>
 
 <script>
 const azkarList = [
@@ -190,15 +309,28 @@ const azkarList = [
 ];
 
 function showZekr() {
-    let randomIndex = Math.floor(Math.random() * azkarList.length);
-    let text = azkarList[randomIndex];
-
-    // تقسيم النص عند القوسين ووضع كل جزء في سطر
-    let parts = text.split(/\s*(\(.+?\))\s*/); // يحتفظ بالقوسين
-    let formatted = parts.filter(p => p.trim() !== "").join("\n");
-
-    document.getElementById("zekr").innerText = formatted;
+  let randomIndex = Math.floor(Math.random() * azkarList.length);
+  let text = azkarList[randomIndex];
+  let parts = text.split(/\s*(\(.+?\))\s*/);
+  let formatted = parts.filter(p => p.trim() !== "").join("\n");
+  document.getElementById("zekr").innerText = formatted;
 }
+
+// ---- Theme Switch ----
+const themeSwitch = document.getElementById('themeSwitch');
+const html = document.documentElement;
+
+// استعادة الوضع السابق من localStorage
+let savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+themeSwitch.checked = savedTheme === 'light';
+
+themeSwitch.addEventListener('change', () => {
+  let theme = themeSwitch.checked ? 'light' : 'dark';
+  html.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+});
 </script>
+
 </body>
 </html>

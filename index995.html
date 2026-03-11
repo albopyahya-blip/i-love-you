@@ -6,7 +6,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+
 *{box-sizing:border-box}
+
+/* ---------- THEME COLORS ---------- */
+
+:root{
+  --overlay: radial-gradient(circle, rgba(38, 37, 40, 0.25), rgba(0,0,0,.75));
+  --bg-image: url("background.jpg");
+  --text-main:#ffffff;
+}
+
+[data-theme="light"]{
+  --overlay: radial-gradient(circle, rgba(255,200,220,.7), rgba(255,240,245,.9));
+  --bg-image: url("background.jpg");
+  --text-main:#111;
+}
+
+/* ---------- BODY ---------- */
 
 body{
   margin:0;
@@ -14,14 +31,19 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+
   background:
-    radial-gradient(circle, rgba(255,215,0,.25), rgba(0,0,0,.75)),
-    url("background.jpg") no-repeat center/cover;
+    var(--overlay),
+    var(--bg-image) no-repeat center/cover;
+
   font-family:'Segoe UI',sans-serif;
   overflow:hidden;
+  color:var(--text-main);
+  transition:0.4s;
 }
 
 /* ================= ENVELOPE ================= */
+
 .envelope{
   width:340px;
   height:220px;
@@ -35,12 +57,13 @@ body{
   height:100%;
   background:#fff;
   border-radius:16px;
-  box-shadow:0 40px 100px rgba(0,0,0,.8);
+  /* box-shadow:0 40px 100px rgba(255, 0, 0, 0.8); */
   position:relative;
   overflow:hidden;
 }
 
-/* FLAP (UHALISIA) */
+/* FLAP */
+
 .flap{
   position:absolute;
   top:0;
@@ -55,6 +78,7 @@ body{
 }
 
 /* LETTER */
+
 .letter{
   position:absolute;
   inset:18px;
@@ -65,24 +89,28 @@ body{
   transition:transform 1.6s cubic-bezier(.22,1,.36,1);
 }
 
-/* OPEN STATE */
 .envelope.open .flap{
   transform:rotateX(180deg);
 }
+
 .envelope.open .letter{
   transform:translateY(0);
 }
 
 /* ================= TEXT ================= */
+
 .text{
-  color:#000;
+  color:#111;
   font-size:17px;
   line-height:1.8;
   text-transform:uppercase;
-  text-shadow:
-    0 0 8px #ffd700,
-    0 0 18px #ffea00,
-    0 0 30px #ffd700;
+
+  /* إضاءة رومانسية وردية */
+  /* text-shadow:
+    0 0 5px #ff9ac2,
+    0 0 12px #ff6fa5,
+    0 0 22px #ff2d75,
+    0 0 35px #ff2d75; */
 }
 
 .name{
@@ -91,97 +119,255 @@ body{
   animation:glow 3s infinite;
 }
 
+/* تأثير لمعان للاسم */
 @keyframes glow{
-  0%{text-shadow:0 0 10px #ffd700;}
-  50%{text-shadow:0 0 35px #ffea00;}
-  100%{text-shadow:0 0 10px #ffd700;}
-}
 
+  0%{
+    text-shadow:
+      0 0 8px #ff6fa5;
+  }
+
+  50%{
+    text-shadow:
+      0 0 15px #ff6fa5,
+      0 0 30px #ff2d75,
+      0 0 45px #ff2d75;
+  }
+
+  100%{
+    text-shadow:
+      0 0 8px #ff6fa5;
+  }
+
+}
 /* ================= HEARTS ================= */
+
 .float{
   position:fixed;
   bottom:-30px;
   animation:up 7s linear forwards;
   pointer-events:none;
 }
+
 @keyframes up{
   from{transform:translateY(0) scale(.8);opacity:1}
   to{transform:translateY(-120vh) scale(1.6);opacity:0}
 }
+
+/* ================= THEME SWITCH ================= */
+
+.switch{
+  font-size:15px;
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:3.2em;
+  height:1.8em;
+  border-radius:30px;
+  box-shadow:0 0 8px rgba(0,0,0,0.1);
+  z-index:2000;
+}
+
+.switch input{
+  display:none;
+}
+
+.slider{
+  position:absolute;
+  cursor:pointer;
+  inset:0;
+  background:#333;
+  border-radius:30px;
+  transition:.4s;
+  overflow:hidden;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  height:1em;
+  width:1em;
+  left:0.4em;
+  bottom:0.4em;
+  border-radius:50%;
+  background:#ff77bb;
+  transition:.4s;
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider{
+  background:#70b5ff;
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(1.4em);
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* stars */
+
+.star{
+  background:#fff;
+  border-radius:50%;
+  position:absolute;
+  width:4px;
+  height:4px;
+}
+
+.star_1{left:2em;top:.4em}
+.star_2{left:1.8em;top:1em}
+.star_3{left:2.4em;top:.7em}
+
+.switch input:checked ~ .slider .star{
+  opacity:0;
+}
+
+/* cloud */
+
+.cloud{
+  position:absolute;
+  bottom:-1em;
+  left:-.9em;
+  opacity:0;
+  transition:.4s;
+}
+
+.switch input:checked ~ .slider .cloud{
+  opacity:1;
+}
+
 </style>
 </head>
 
 <body>
 
 <audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
+<source src="sound/Albumaty.Com_mhmd_sayd_fy_ayny.mp3" type="audio/mpeg">
 </audio>
 
 <div class="envelope" onclick="openEnvelope()">
-  <div class="env-body">
-    <div class="flap"></div>
 
-    <div class="letter">
-      <div class="text">
-        HAPPY VALENTINE DAY 💕 <br>
-        <span class="name">SHAKIRA</span><br><br>
+<div class="env-body">
 
-        HAPPY VALENTINE DAY TAMU YANGU,
-        NATUMAINI UMEVUTIWA NA ZAWADI ZANGU.<br><br>
+<div class="flap"></div>
 
-        UMBALI TULIONAO ISIWE SABABU YA
-        MIMI NA WEWE KUTOSHEREHEKEA SIKU HII
-        MAHUSUSI ILIYOWEKWA KWA AJILI YETU.<br><br>
+<div class="letter">
+<div class="text">
 
-        NA HUU NI MOJA YA UTHIBITISHO
-        KUONESHA NI JINSI GANI NAKUPENDA.<br><br>
+HAPPY BIRTHDAT💕 <br>
+<span class="name">MY WIFE</span><br><br>
 
-        SIKU HII IKAWE NI ALAMA KWETU SOTE
-        KULIENZI NA KULIDUMISHA PENZI LETU.<br><br>
+HAPPY VALENTINE DAY TAMU YANGU,
+NATUMAINI UMEVUTIWA NA ZAWADI ZANGU.<br><br>
 
-        NIKUTAKIE SIKU NJEMA NA WAKATI MWEMA ULIONAO.<br><br>
+UMBALI TULIONAO ISIWE SABABU YA
+MIMI NA WEWE KUTOSHEREHEKEA SIKU HII
+MAHUSUSI ILIYOWEKWA KWA AJILI YETU.<br><br>
 
-        <strong>
-        NAKUPENDA SANA 💕💕💕<br>
-        CHA MIDEKO WANGU
-        </strong>
-      </div>
-    </div>
-  </div>
+NA HUU NI MOJA YA UTHIBITISHO
+KUONESHA NI JINSI GANI NAKUPENDA.<br><br>
+
+SIKU HII IKAWE NI ALAMA KWETU SOTE
+KULIENZI NA KULIDUMISHA PENZI LETU.<br><br>
+
+NIKUTAKIE SIKU NJEMA NA WAKATI MWEMA ULIONAO.<br><br>
+
+<strong>
+NAKUPENDA SANA 💕💕💕<br>
+CHA MIDEKO WANGU
+</strong>
+
+</div>
 </div>
 
+</div>
+</div>
+
+<!-- SWITCH -->
+
+<label class="switch">
+<input type="checkbox" id="themeSwitch">
+<span class="slider">
+<span class="star star_1"></span>
+<span class="star star_2"></span>
+<span class="star star_3"></span>
+<span class="cloud">☁️</span>
+</span>
+</label>
+
 <script>
+
+/* ---------- ENVELOPE ---------- */
+
 let opened=false;
+
 function openEnvelope(){
-  if(opened) return;
-  opened=true;
 
-  document.querySelector(".envelope").classList.add("open");
+if(opened) return;
+opened=true;
 
-  const music=document.getElementById("music");
-  music.volume=0;
-  music.play();
+document.querySelector(".envelope").classList.add("open");
 
-  let v=0;
-  const fade=setInterval(()=>{
-    v+=0.05;
-    music.volume=Math.min(v,1);
-    if(v>=1) clearInterval(fade);
-  },200);
+const music=document.getElementById("music");
 
-  setInterval(spawn,350);
+music.volume=0;
+music.play();
+
+let v=0;
+
+const fade=setInterval(()=>{
+
+v+=0.05;
+music.volume=Math.min(v,1);
+
+if(v>=1) clearInterval(fade);
+
+},200);
+
+setInterval(spawn,350);
+
 }
 
 function spawn(){
-  const e=document.createElement("div");
-  e.className="float";
-  e.innerHTML=Math.random()>0.5?"💛":"💕";
-  e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=(18+Math.random()*26)+"px";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),7000);
+
+const e=document.createElement("div");
+
+e.className="float";
+
+let items = ["❤️","💛","💚","💙","💜","💕","💗","💘","💝","💓","🎈","🎈","🎉","🎊","✨"];
+
+e.innerHTML = items[Math.floor(Math.random() * items.length)];
+e.style.left=Math.random()*100+"vw";
+e.style.fontSize=(18+Math.random()*26)+"px";
+
+document.body.appendChild(e);
+
+setTimeout(()=>e.remove(),7000);
+
 }
+
+/* ---------- THEME SWITCH ---------- */
+
+const themeSwitch=document.getElementById("themeSwitch");
+const html=document.documentElement;
+
+let savedTheme=localStorage.getItem("theme")||"dark";
+
+html.setAttribute("data-theme",savedTheme);
+
+themeSwitch.checked=savedTheme==="light";
+
+themeSwitch.addEventListener("change",()=>{
+
+const theme=themeSwitch.checked?"light":"dark";
+
+html.setAttribute("data-theme",theme);
+
+localStorage.setItem("theme",theme);
+
+});
+
 </script>
 
 </body>
-  </html>
+</html>
