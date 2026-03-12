@@ -1,3 +1,59 @@
+<style>
+:root {
+  /* الوضع الليلي - بني */
+  --bg-dark: #2b1d16;      /* خلفية رئيسية بني غامق */
+  --bg-side: #3e2a20;      /* المنيو الجانبي */
+  --bg-light: #4a3326;     /* خلفيات داخلية */
+  
+  --text-main: #f5e6d8;    /* نصوص فاتحة */
+  --text-primary: #d9a066; /* عناوين */
+  
+  --btn-main: #8b5e3c;     /* زرار بني */
+  --btn-hover: #a47149;    /* hover */
+  
+  --accent: #c89b6d;       /* أيقونات */
+}
+
+/* الوضع النهاري - بينك */
+[data-theme="light"] {
+  --bg-dark: #ffc0d6;      /* خلفية بينك */
+  --bg-side: #ffd6e7;      /* منيو */
+  --bg-light: #fff0f6;     /* صفحات فاتحة */
+  
+  --text-main: #4a1f2d;    /* نص */
+  --text-primary: #ff4f9a; /* عنوان */
+  
+  --btn-main: #ff77bb;     /* زرار */
+  --btn-hover: #ff99cc;    /* hover */
+  
+  --accent: #ff5fa2;       /* أيقونات */
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+}
+
+button {
+  background-color: var(--btn-main);
+  color: var(--text-main);
+}
+
+button:hover {
+  background-color: var(--btn-hover);
+}
+body {
+  height: 100vh;
+}
+</style>
+
+
+
+
+
+
+
+
 <style>:root {
   --bg-dark: #111111;      /* مثال: خلفية عامة داكنة جديدة */
   --bg-side: #333333;      /* المنيو الجانبي */

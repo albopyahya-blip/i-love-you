@@ -3,18 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>counter</title>
-<link rel="stylesheet" href="css/ym600.css">
+<title>Counter</title>
+<style>
+/* الوضع الليلي افتراضي */
+:root{
+  --bg-dark:#2b1d16;
+  --bg-side:#3e2a20;
+  --bg-light:#4a3326;
+
+  --text-main:#f5e6d8;
+  --text-primary:#d9a066;
+
+  --btn-main:#8b5e3c;
+  --btn-hover:#a47149;
+
+  --accent:#c89b6d;
+}
+
+/* الوضع النهاري */
+[data-theme="light"]{
+  --bg-dark:#ffc0d6;
+  --bg-side:#ffd6e7;
+  --bg-light:#fff0f6;
+
+  --text-main:#4a1f2d;
+  --text-primary:#ff4f9a;
+
+  --btn-main:#ff77bb;
+  --btn-hover:#ff99cc;
+
+  --accent:#ff5fa2;
+}
+
+/* body وكل شيء يعتمد على المتغيرات */
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  transition: background 0.4s, color 0.4s;
+}
+
+/* timer */
+#timer{
+  display:flex;
+  gap:20px;
+  font-size:35px;
+  font-weight:bold;
+}
+
+#timer span{
+  background: var(--bg-side);
+  padding:20px 25px;
+  border-radius:10px;
+  color: var(--text-main);
+  transition: background 0.4s, color 0.4s;
+}
+
+/* switch */
+.switch{
+  font-size:15px;
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:3.2em;
+  height:1.8em;
+}
+
+.switch input{
+  opacity:0;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  cursor:pointer;
+  background:var(--bg-side);
+  border-radius:30px;
+  transition:.4s;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  height:1em;
+  width:1em;
+  border-radius:50%;
+  left:.4em;
+  bottom:.4em;
+  background:var(--btn-main);
+  transition:.4s;
+  box-shadow:inset 6px -3px 0 #fff;
+}
+
+.switch input:checked + .slider{
+  background:var(--accent);
+}
+
+.switch input:checked + .slider:before{
+  transform:translateX(1.4em);
+  box-shadow: inset 12px -3px 0 12px #ffcf48;
+}
+
+/* stars */
+.star{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:#fff;
+  border-radius:50%;
+}
+
+.star_1{left:2em;top:.4em;}
+.star_2{left:1.8em;top:1em;}
+.star_3{left:2.4em;top:.7em;}
+
+.switch input:checked ~ .slider .star{
+  opacity:0;
+}
+
+/* cloud */
+.cloud{
+  position:absolute;
+  bottom:-1em;
+  left:-.9em;
+  opacity:0;
+  transition:.4s;
+}
+
+.switch input:checked ~ .slider .cloud{
+  opacity:1;
+}
+</style>
 </head>
 <body>
 
 <div id="timer">
-  <span id="days" data-label="أيام">00</span>
-  <span id="hours" data-label="ساعات">00</span>
-  <span id="minutes" data-label="دقائق">00</span>
-  <span id="seconds" data-label="ثواني">00</span>
+<span id="days">00</span>
+<span id="hours">00</span>
+<span id="minutes">00</span>
+<span id="seconds">00</span>
 </div>
 
+<label class="switch">
+<input type="checkbox" id="themeSwitch">
+<span class="slider">
+<span class="star star_1"></span>
+<span class="star star_2"></span>
+<span class="star star_3"></span>
+<span class="cloud">☁️</span>
+</span>
+</label>
+
+<script>
+// عناصر
+const themeSwitch = document.getElementById("themeSwitch");
+const html = document.documentElement;
+
+// استرجاع الوضع من localStorage
+let savedTheme = localStorage.getItem("theme");
+if(savedTheme === "light"){
+  html.setAttribute("data-theme","light");
+  themeSwitch.checked = true;
+}
+
+// تغيير الوضع عند تبديل الزر
+themeSwitch.addEventListener("change", ()=>{
+  if(themeSwitch.checked){
+    html.setAttribute("data-theme","light");
+    localStorage.setItem("theme","light");
+  }else{
+    html.removeAttribute("data-theme");
+    localStorage.setItem("theme","dark");
+  }
+});
+</script>
 <script src="js/ym600.js"></script>
+
 </body>
 </html>
+
