@@ -1,8 +1,8 @@
 /* ── CSS Custom Properties (set dynamically by main.js) ──────── */
 :root {
   --primary: #f472b6;
-  --accent: #72fa60;
-  --bg: #f20b0b;
+  --accent: #60a5fa;
+  --bg: #0f172a;
   --text: #f1f5f9;
 }
 
