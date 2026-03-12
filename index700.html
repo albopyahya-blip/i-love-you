@@ -6,17 +6,17 @@
 <title>For You ❤️</title>
 <style>
 :root {
-  --bg-dark: #111111;      /* مثال: خلفية عامة داكنة جديدة */
-  --bg-side: #333333;      /* المنيو الجانبي */
-  --bg-light: #ffe0f0;     /* صفحات خاصة */
+  --bg-dark: #111111;
+  --bg-side: #333333;
+  --bg-light: #ffe0f0;
   
-  --text-main: #eeeeee;    /* نصوص عامة */
-  --text-primary: #ff66aa; /* نصوص/عناوين رئيسية */
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
   
-  --btn-main: #ff77bb;     /* زرار رئيسي */
-  --btn-hover: #ff99cc;    /* hover */
+  --btn-main: #8b5e3c;
+  --btn-hover: #a47149;
   
-  --accent: #70b5ff;       /* أيقونات */
+  --accent: #70b5ff;
 }
 
 [data-theme="light"] {
@@ -27,15 +27,15 @@
   --text-main: #222222;
   --text-primary: #e6007a;
   
-  --btn-main: #ff77bb;
-  --btn-hover: #ff99cc;
+  --btn-main: #ff69b4;
+  --btn-hover: #ff1493;
   
   --accent: #4d94ff;
 }
 
 body {
   margin:0;
-  height:100vh;
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -51,21 +51,23 @@ body {
     flex-direction:column;
     align-items:center;
     text-align:center;
+    padding: 0 10px;  /* مسافة من الجوانب */
+    box-sizing:border-box;
 }
 
 #text{
-    font-size:34px;
-    max-width:700px;
+    font-size: calc(16px + 2vw); /* يتغير حسب حجم الشاشة */
+    max-width: 90vw;             /* لا يتجاوز عرض الشاشة */
     min-height:120px;
     line-height:1.6;
     margin-bottom:20px;
     transition: color 0.5s;
 }
 
-/* ألوان الأزرار حسب الوضع */
+/* أزرار */
 button {
-    padding:12px 50px;
-    font-size:20px;
+    padding:10px 35px;
+    font-size: calc(14px + 1vw); /* يتغير حسب حجم الشاشة */
     border-radius:40px;
     border:1px solid var(--btn-main);
     background: var(--btn-main);
@@ -81,22 +83,11 @@ button:hover {
     transform:scale(1.05);
 }
 
-/* ألوان الأزرار حسب الوضع */
-:root {
-  --btn-main: #8b5e3c;     /* بني غامق */
-  --btn-hover: #a47149;    /* بني فاتح */
-}
-
-[data-theme="light"] {
-  --btn-main: #ff69b4;     /* وردي مشرق */
-  --btn-hover: #ff1493;    /* وردي أغمق */
-}
-
 /* القلوب */
 .heart{
     position:absolute;
     color: var(--text-primary);
-    font-size:26px;
+    font-size: calc(16px + 1vw);
     animation:float 5s linear infinite;
 }
 
@@ -153,23 +144,92 @@ button:hover {
   transition: all 0.4s;
 }
 
+/* Switch Container أصغر */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;   /* أصغر شوي */
+  height: 1.8em;  /* أصغر شوي */
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;       /* أصغر شوي */
+  width: 1em;        /* أصغر شوي */
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);  /* تحريك أقل بسبب صغر الحجم */
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* النجوم */
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 4px;   /* أصغر شوي */
+  height: 4px;  /* أصغر شوي */
+  transition: all 0.4s;
+}
+
 .star_1 { left: 2em; top: 0.4em; }
 .star_2 { left: 1.8em; top: 1em; }
 .star_3 { left: 2.4em; top: 0.7em; }
 
-.switch input:checked ~ .slider .star { opacity:0; }
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
 
 /* السحابة */
 .cloud {
-  width:2.8em;
-  position:absolute;
-  bottom:-1em;
-  left:-0.9em;
-  opacity:0;
-  transition:all 0.4s;
+  width: 2.8em;   /* أصغر شوي */
+  position: absolute;
+  bottom: -1em;
+  left: -0.9em;
+  opacity: 0;
+  transition: all 0.4s;
 }
 
-.switch input:checked ~ .slider .cloud { opacity:1; }
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
+}
 
 </style>
 </head>

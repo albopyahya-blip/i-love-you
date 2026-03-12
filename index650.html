@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هدايا 🎁</title>
+<style>
+:root {
+  --bg-dark: #111111;
+  --bg-side: #333333;
+  --bg-light: #222222;
+
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
+
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+
+  --accent: #70b5ff;
+}
+
+[data-theme="light"] {
+  --bg-dark: #ffeef0;
+  --bg-side: #ffffff;
+  --bg-light: #fff0f5;
+
+  --text-main: #222222;
+  --text-primary: #e6007a;
+
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+
+  --accent: #4d94ff;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.gift-box {
+  background: var(--bg-light);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 15px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gift-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+.gift-icon {
+  font-size: 60px;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.gift-button {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(90deg, #ff66aa, #ff3399);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.gift-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.gift-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+[data-theme="light"] .gift-button {
+  background: linear-gradient(90deg, #ff77bb, #ff66aa);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .gift-button {
+  background: linear-gradient(90deg, #ff3399, #ff66aa);
+  color: #ffffff;
+}
+
+/* Switch */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;
+  height: 1.8em;
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em; width: 1em;
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+  }
+  .gift-box {
+    padding: 15px;
+  }
+  .gift-icon {
+    font-size: 45px;
+  }
+  .gift-button {
+    font-size: 14px;
+    padding: 12px 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index601.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index602.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index603.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index604.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index605.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index606.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index607.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index608.html'">open</button>
+  </div>
+  <div class="gift-box">
+    <div class="gift-icon">🎁</div>
+    <button class="gift-button" onclick="location.href='index609.html'">open</button>
+  </div>
+</div>
+
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider"></span>
+</label>
+
+<script>
+const themeSwitch = document.getElementById('themeSwitch');
+const html = document.documentElement;
+
+// الوضع الحالي من localStorage
+let darkMode = localStorage.getItem('theme') === 'light' ? false : true;
+themeSwitch.checked = !darkMode;
+html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+
+themeSwitch.addEventListener('change', () => {
+  darkMode = !themeSwitch.checked;
+  html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+});
+</script>
+
+</body>
+</html>

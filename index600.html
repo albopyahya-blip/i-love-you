@@ -7,8 +7,8 @@
 <style>
 /* الوضع الليلي افتراضي */
 :root {
-  --bg-dark: #111111;      /* مثال: خلفية عامة داكنة جديدة */
-  --bg-side: #333333;      /* المنيو الجانبي */
+  --bg-dark: #111111;      /* خلفية داكنة */
+  --bg-side: #333333;      /* خلفية timer */
   --bg-light: #ffe0f0;     /* صفحات خاصة */
   
   --text-main: #eeeeee;    /* نصوص عامة */
@@ -41,7 +41,7 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  font-family:Arial;
+  font-family: 'Arial', 'Segoe UI', Tahoma, sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-main);
   transition: background 0.4s, color 0.4s;
@@ -50,16 +50,22 @@ body{
 /* timer */
 #timer{
   display:flex;
-  gap:20px;
-  font-size:35px;
+  gap:15px;
+  font-size:3.5rem; /* أكبر وأكثر وضوحًا */
   font-weight:bold;
+  text-align:center;
+  line-height:1.2;
 }
 
 #timer span{
   background: var(--bg-side);
   padding:20px 25px;
-  border-radius:10px;
+  border-radius:12px;
   color: var(--text-main);
+  min-width:70px;
+  text-align:center;
+  font-family: 'Arial', sans-serif;
+  letter-spacing:1px;
   transition: background 0.4s, color 0.4s;
 }
 
@@ -137,25 +143,39 @@ body{
 .switch input:checked ~ .slider .cloud{
   opacity:1;
 }
+
+/* responsive للموبايل */
+@media(max-width:480px){
+  #timer{
+    flex-direction:column;
+    font-size:2.5rem;
+  }
+  
+  #timer span{
+    min-width:60px;
+    padding:15px 20px;
+    border-radius:10px;
+  }
+}
 </style>
 </head>
 <body>
 
 <div id="timer">
-<span id="days">00</span>
-<span id="hours">00</span>
-<span id="minutes">00</span>
-<span id="seconds">00</span>
+  <span id="days">00<span class="dot">●</span></span>
+  <span id="hours">00<span class="dot">●</span></span>
+  <span id="minutes">00<span class="dot">●</span></span>
+  <span id="seconds">00<span class="dot">●</span></span>
 </div>
 
 <label class="switch">
-<input type="checkbox" id="themeSwitch">
-<span class="slider">
-<span class="star star_1"></span>
-<span class="star star_2"></span>
-<span class="star star_3"></span>
-<span class="cloud">☁️</span>
-</span>
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider">
+    <span class="star star_1"></span>
+    <span class="star star_2"></span>
+    <span class="star star_3"></span>
+    <!-- <span class="cloud">☁️</span> -->
+  </span>
 </label>
 
 <script>
@@ -185,4 +205,3 @@ themeSwitch.addEventListener("change", ()=>{
 
 </body>
 </html>
-
