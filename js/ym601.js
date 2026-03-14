@@ -28,23 +28,23 @@
 const CONFIG = {
   // ── Recipient Info ────────────────────────────────────────────
   name: "maloktyyy",
-  photo: "./img/IMG_7783.jpg",       // Place your photo in the img/ folder
-  music: "./sound/Albumaty.Com_mhmd_sayd_fy_ayny.mp3",      // Place your music in the music/ folder
+  photo: "img/IMG_7779.jpg",       // Place your photo in the img/ folder
+  music: "./music/hbd.mpeg",      // Place your music in the music/ folder
 
   // ── Theme Colors ──────────────────────────────────────────────
   // A toggle button lets the viewer switch between dark & light mode.
   colors: {
-    primary: "#ff77bb",          // لون الزرار الرئيسي
-    accent: "#ff99cc",           // لون الأيقونات / accent
+    primary: "#ff69b4",           // Main accent color (rose pink)
+    accent: "#ff69b4",            // Secondary accent color (sky blue)
     dark: {
-      background: "#111111",     // خلفية الوضع الداكن
-      text: "#eeeeee",           // نص الوضع الداكن
+      background: "#111111",      // Slate 900
+      text: "#eeeeee",            // Slate 100
     },
     light: {
-      background: "#f8f8ff",     // خلفية الوضع الفاتح
-      text: "#222222",           // نص الوضع الفاتح
+      background: "#fffdfd",      // Stone 50
+      text: "#222222",            // Slate 800
     },
-},
+  },
 
   // ── Default Color Mode ────────────────────────────────────────
   // Options: "dark" or "light"
@@ -56,7 +56,7 @@ const CONFIG = {
     {
       type: "greeting",
       title: "Hi",
-      subtitle: "I love you",
+      subtitle: "my wife",
     },
     {
       type: "countdown",
@@ -65,29 +65,29 @@ const CONFIG = {
     },
     {
       type: "announcement",
-      text: "It's your birthday!! :D",
+      text: "It's your birthday my wife",
     },
     {
       type: "chatbox",
       message:
-        "Happy birthday to youu!! Wishing you a wonderful year ahead filled with joy, love, and endless happiness!",
+        "Happy birthday my love may you live a million years and may we always be together",
       buttonText: "Send",
     },
     {
       type: "ideas",
       lines: [
-        "That's what I was going to do.",
-        "But then I stopped.",
-        "I realised, I wanted to do something <strong>special</strong>.",
-        "Because,",
+        "That's what I was going to do",
+        "But then I stopped",
+        "I realised I wanted to do something <strong>special</strong>",
+        "Because",
         "You are Special <span>:)</span>",
       ],
       bigLetters: "SO",
     },
     {
       type: "quote",
-      text: "The more you praise and celebrate your life, the more there is in life to celebrate.",
-      author: "Oprah Winfrey",
+      text: "feel so lucky to have you in my life Every moment with you is a treasure and you make my world brighter just by being in it I hope this year brings you as much happiness, love and laughter as you bring to me every day I love you more than words can ever say",
+      author: "yayouyk",
     },
     {
       type: "stars",
@@ -99,8 +99,8 @@ const CONFIG = {
     },
     {
       type: "profile",
-      wishTitle: "HappyBirthday!",
-      wishText: "May the js.prototypes always be with you! ;)",
+      wishTitle: "Happy Birthday!",
+      wishText: "And in the end, I love you more than you can imagine, my beautiful girl, and my heart chose you from the very first moment it saw you 💕🌸",
     },
     {
       type: "fireworks",
@@ -110,10 +110,10 @@ const CONFIG = {
       type: "confetti",
       count: 9,
     },
-    {
-      type: "closing",
-      text: "Okay, now come back and tell me if you liked it.",
-      replayText: "Or click, if you want to watch it again.",
-    },
+    // {
+    //   type: "closing",
+    //   text: "Okay, now come back and tell me if you liked it.",
+    //   replayText: "Or click, if you want to watch it again.",
+    // },
   ],
 };

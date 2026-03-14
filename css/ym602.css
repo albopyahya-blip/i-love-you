@@ -1,0 +1,108 @@
+:root {
+  --bg-dark: #111111;
+  --bg-side: #333333;
+  --bg-light: #ffe0f0;
+
+  --text-main: #eeeeee;
+  --text-primary: #ff66aa;
+
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+
+  --accent: #70b5ff;
+}
+
+/* الوضع الليلي افتراضي */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* الوضع النهاري */
+[data-theme="light"] {
+  --bg-dark: #ffccd5;
+  --bg-side: #ffffff;
+  --bg-light: #fff0f5;
+
+  --text-main: #222222;
+  --text-primary: #e6007a;
+
+  --btn-main: #ff77bb;
+  --btn-hover: #ff99cc;
+
+  --accent: #4d94ff;
+}
+
+.container {
+  text-align: center;
+  background: var(--bg-side);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+  max-width: 300px;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  width: 80%;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--btn-main);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: var(--btn-hover);
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.message {
+  font-size: 1.3em;
+  margin-top: 20px;
+  color: var(--text-primary);
+}
+
+.music-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  padding: 15px 20px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.music-player button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+ background: var(--btn-main);
+color: var(--text-main);
+  cursor: pointer;
+  font-size: 16px;
+}
