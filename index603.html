@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+<style>
+:root {
+  --bg-dark: #111111;      /* مثال: خلفية عامة داكنة جديدة */
+  --bg-side: #333333;      /* المنيو الجانبي */
+  --bg-light: #ffe0f0;     /* صفحات خاصة */
+  
+  --text-main: #ffffff;    /* نصوص عامة */
+  --text-primary: #ff66aa; /* نصوص/عناوين رئيسية */
+  
+  --btn-main: #ff77bb;     /* زرار رئيسي */
+  --btn-hover: #ff99cc;    /* hover */
+  
+  --accent: #70b5ff;       /* أيقونات */
+}
+
+[data-theme="light"] {
+  --bg-dark: #ffccd5;
+  --bg-side: #ffffff;
+  --bg-light: #fff0f5;
+  
+  --text-main: #ffffff;
+  --text-primary: #e6007a;
+  
+  --btn-main: #000000;
+  --btn-hover: #191919;
+  
+  --accent: #4d94ff;
+}
+
+body {
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  overflow:hidden;
+  transition: background 0.5s, color 0.5s;
+}
+
+.container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding: 0 10px;  /* مسافة من الجوانب */
+    box-sizing:border-box;
+}
+
+#text{
+    font-size: calc(16px + 2vw); /* يتغير حسب حجم الشاشة */
+    max-width: 90vw;             /* لا يتجاوز عرض الشاشة */
+    min-height:120px;
+    line-height:1.6;
+    margin-bottom:20px;
+    transition: color 0.5s;
+}
+
+/* أزرار */
+button {
+    padding:10px 35px;
+    font-size: calc(14px + 1vw); /* يتغير حسب حجم الشاشة */
+    border-radius:40px;
+    border:1px solid var(--btn-main);
+    background: var(--btn-main);
+    color: var(--text-main);
+    cursor:pointer;
+    transition:0.25s, color 0.5s, border-color 0.5s, background 0.5s;
+    margin-top:10px;
+}
+
+button:hover {
+    background: var(--btn-hover);
+    color: var(--text-main);
+    transform:scale(1.05);
+}
+
+/* القلوب */
+.heart{
+    position:absolute;
+    color: var(--text-primary);
+    font-size: calc(16px + 1vw);
+    animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-900px);opacity:0;}
+}
+
+/* Switch */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;
+  height: 1.8em;
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input { opacity: 0; width:0; height:0; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left:0; right:0; bottom:0;
+  background-color: var(--bg-side);
+  border-radius: 30px;
+  transition: 0.4s;
+  overflow:hidden;
+}
+
+.slider:before {
+  position:absolute;
+  content:"";
+  height:1em; width:1em;
+  border-radius:50%;
+  left:0.4em; bottom:0.4em;
+  transition:0.4s;
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider { background-color: var(--accent); }
+.switch input:checked + .slider:before { transform: translateX(1.4em); }
+
+/* النجوم */
+.star {
+  background-color: #fff;
+  border-radius:50%;
+  position:absolute;
+  width:4px; height:4px;
+  transition: all 0.4s;
+}
+
+/* Switch Container أصغر */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;   /* أصغر شوي */
+  height: 1.8em;  /* أصغر شوي */
+  border-radius: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 2000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;       /* أصغر شوي */
+  width: 1em;        /* أصغر شوي */
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);  /* تحريك أقل بسبب صغر الحجم */
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* النجوم */
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 4px;   /* أصغر شوي */
+  height: 4px;  /* أصغر شوي */
+  transition: all 0.4s;
+}
+
+.star_1 { left: 2em; top: 0.4em; }
+.star_2 { left: 1.8em; top: 1em; }
+.star_3 { left: 2.4em; top: 0.7em; }
+
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
+
+/* السحابة */
+.cloud {
+  width: 2.8em;   /* أصغر شوي */
+  position: absolute;
+  bottom: -1em;
+  left: -0.9em;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div id="text"></div>
+    <button onclick="next()">Next</button>
+</div>
+
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider">
+    <span class="star star_1"></span>
+    <span class="star star_2"></span>
+    <span class="star star_3"></span>
+    <!-- <span class="cloud">☁️</span> -->
+  </span>
+</label>
+
+
+
+<script>
+let messages=[
+"I love looking at you",
+"I love talking to you",
+"I love being with you",
+"I love joking with you",
+"I love spend time with you",
+"I love listening to you",
+"I love every memory with you",
+"I love being in love with you",
+"I love you ",
+"You make me feel loved ",
+"enough , beautiful",
+"and everything I could ever imagine",
+];
+const music = new Audio("sound/Albumaty.Com_mhmd_sayd_fy_ayny.mp3");
+music.loop = true;
+music.volume = 0.7;
+
+let musicStarted = false;
+let index=0;
+let text=document.getElementById("text");
+
+function typeWriter(message,i=0){
+    if(i < message.length){
+        text.innerHTML += message.charAt(i);
+        setTimeout(()=>typeWriter(message,i+1),40);
+    } else {
+        if(index === messages.length-1){
+            startHearts();
+            document.querySelector("button").style.display="none";
+        }
+    }
+}
+
+typeWriter(messages[0]);
+
+function next(){
+
+    // 🎵 تشغيل الأغنية أول ضغطة
+    if(!musicStarted){
+        music.play();
+        musicStarted = true;
+    }
+
+    index++;
+    if(index < messages.length){
+        text.innerHTML="";
+        typeWriter(messages[index]);
+    }
+}
+
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.innerHTML="❤️";
+        heart.className="heart";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.top="100vh";
+        document.body.appendChild(heart);
+        setTimeout(()=>{ heart.remove(); },5000);
+    },250);
+}
+
+// Theme switch
+const themeSwitch = document.getElementById('themeSwitch');
+const html = document.documentElement;
+
+// الوضع الحالي
+let darkMode = localStorage.getItem('theme') === 'light' ? false : true;
+themeSwitch.checked = !darkMode;
+html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+
+themeSwitch.addEventListener('change', () => {
+  darkMode = !themeSwitch.checked;
+  html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+});
+</script>
+
+</body>
+</html>
