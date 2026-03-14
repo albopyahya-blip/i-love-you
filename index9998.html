@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message</title>
+
+<style>
+/* ===== THEME VARIABLES ===== */
+:root {
+  --bg: #ffccd5;
+  --text: #222222;
+  --secondary: #777777;
+  --accent: #ff66aa;
+}
+
+[data-theme="dark"] {
+  --bg: #111111;
+  --text: #eeeeee;
+  --secondary: #aaaaaa;
+  --accent: #70b5ff;
+}
+
+/* ===== BASIC STYLE ===== */
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial, sans-serif;
+    transition:0.3s ease;
+}
+
+.container{
+    text-align:center;
+}
+
+#sentence{
+    font-size:24px;
+    margin-bottom:15px;
+}
+
+#timer{
+    font-size:16px;
+    color:var(--secondary);
+}
+
+/* ===== SWITCH ===== */
+.switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  display:none;
+}
+
+.slider {
+  position:absolute;
+  cursor:pointer;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:#ccc;
+  border-radius:30px;
+  transition:0.3s;
+}
+
+.slider:before {
+  content:"";
+  position:absolute;
+  height:20px;
+  width:20px;
+  left:4px;
+  bottom:4px;
+  background:white;
+  border-radius:50%;
+  transition:0.3s;
+}
+
+input:checked + .slider {
+  background:var(--accent);
+}
+
+input:checked + .slider:before {
+  transform:translateX(22px);
+}
+@keyframes blinkCursor {
+  50% {
+    border-right-color: transparent;
+  }
+}
+
+@keyframes typeAndDelete {
+  0%,
+  10% {
+    width: 0;
+  }
+
+  45%,
+  55% {
+    width: 5em;
+  }
+
+  90%,
+  100% {
+    width: 0;
+  }
+}
+
+.terminal-loader {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  background: #1c1c1c;
+  border: 1px solid #ffffff3e;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+.terminal-loader{
+  position: relative;
+}
+
+#timer{
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.terminal-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #343434;
+  padding: 6px;
+}
+
+.terminal-controls {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  gap: 7px;
+}
+
+.control {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #777;
+}
+
+.control.close {
+  background-color: #e33;
+}
+
+.control.minimize {
+  background-color: #ee0;
+}
+
+.control.maximize {
+  background-color: #0b0;
+}
+
+.terminal-title {
+  color: #eeeeeec1;
+}
+
+.content {
+  padding: 10px;
+}
+.text {
+  display: block;              /* مهم */
+  overflow: hidden;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+
+  white-space: normal;         /* يسمح بالنزول لسطر جديد */
+  word-wrap: break-word;       /* يكسر الكلمات الطويلة */
+  overflow-wrap: break-word;   /* دعم إضافي */
+}
+.text {
+  font-size: 18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<label class="switch">
+  <input type="checkbox" id="themeSwitch">
+  <span class="slider"></span>
+</label>
+
+<div class="container">
+    <div id="sentence"></div>
+</div>
+<div class="terminal-loader">
+  <div class="terminal-header">
+    <div class="terminal-title">Message for you</div>
+    <div class="terminal-controls">
+      <div class="control close"></div>
+      <div class="control minimize"></div>
+      <div class="control maximize"></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div id="terminalText" class="text"></div>
+    <div id="timer"></div>
+  </div>
+</div>
+
+<script>
+
+/* ===== SENTENCES ===== */
+const sentences = [
+    "I love you ❤️",
+    "I love you so much my girl 💕",
+    "You are the love of my life 💖",
+    "I’m in love with you 🥰",
+    "You are my everything 🌍❤️",
+    "I can’t live without you 😘",
+    "You stole my heart 💘",
+    "My heart is yours 💓",
+    "I choose you every day 💍",
+    "You are my forever ♾️",
+    "I love you more than anything ❤️",
+    "You mean everything to me 💗",
+    "I’m crazy about you 😍",
+    "You are my dream girl ✨",
+    "I adore you 🤍",
+    "You make me the happiest man 😊",
+    "I fall for you more every day 💞",
+    "You are my one and only 💑",
+    "I love being with you 💕",
+    "You complete my heart 💖",
+    "I will always love you ❤️",
+    "You are my queen 👑",
+    "I’m yours forever 💘",
+    "My love for you is endless ♾️",
+    "You are my reason to smile 😊",
+    "I miss you every second 🥺❤️",
+    "You are my sunshine ☀️",
+    "I trust you with my heart 🔐",
+    "You are my safe place 🫶",
+    "I love your beautiful smile 😍",
+    "You are my happiness 💕",
+    "I want you in my future 🌅",
+    "You are my heartbeat 💓",
+    "I’m thankful for your love 🙏❤️",
+    "You are my best decision ever ✨",
+    "I love you with all my heart 💖",
+    "You are my peace 🕊️",
+    "I’m proud to call you mine ❤️",
+    "You are my favorite person 🥰",
+    "I love you, my beautiful girl ❤️",
+    "You are my everything, baby 🌍💕",
+    "My heart belongs to you, princess 💖",
+    "I miss you every second, my love 🥺",
+    "You make my world brighter, sweetheart ☀️",
+    "I’m lucky to have you in my life 💕",
+    "You are my happiness, my girl 😊",
+    "I can’t stop thinking about you, baby 💭",
+    "You are my safe place, my love 🫶",
+    "I love your smile, beautiful 😍",
+    "I love you more than words can explain ❤️",
+    "You are my heart and my soul 💖",
+    "I’m truly in love with you 💕",
+    "You are the only girl for me 💘",
+    "My love for you keeps growing 🌹",
+    "You make my life beautiful ✨",
+    "I feel so lucky to love you 🍀",
+    "You are my sweetest love 🍯",
+    "I want to spend my life with you 💍",
+    "You are my favorite feeling 💓",
+    "I love the way you look at me 😍",
+    "You make my heart smile 😊",
+    "I’m deeply in love with you ❤️",
+    "You are my dream come true 🌟",
+    "I can’t get enough of you 💞",
+    "You are my forever girl ♾️",
+    "My heart melts for you 🫠❤️",
+    "I love you with all my strength 💪❤️",
+    "You are my everything and more 💖",
+    "I cherish every moment with you ⏳",
+    "You are my perfect love story 📖",
+    "I’m grateful for your love 🙏💕",
+    "You are my light in the dark 🌙",
+    "I feel complete when I’m with you 🤍",
+    "You are the best part of my day ☀️",
+    "I love you endlessly and deeply ♾️❤️",
+    "You are my precious girl 💎",
+    "I adore every little thing about you 🥰",
+    "You are my sweetest dream ✨",
+    "I promise to always love you 🤝❤️",
+    "You are my heartbeat every day 💓",
+    "I love making memories with you 📸",
+    "You are my happiness forever 💕",
+    "I’m so happy you are mine 😘",
+    "You are my calm in chaos 🕊️",
+    "I love how you make me feel 💖",
+    "You are my one true love 💍",
+    "I want to grow old with you 👵👴❤️",
+    "You are my beautiful angel 😇",
+    "I fall in love with you every day 💘",
+    "You are my safe and warm place 🫶",
+    "I love holding your hand 🤝❤️",
+    "You are my biggest blessing 🙌",
+    "I love you beyond imagination 🌈",
+    "You are my heart’s desire 💓",
+    "I’m always thinking about you 💭❤️",
+    "You are my reason for everything 🌍",
+    "I love your kindness 🤍",
+    "You are my special someone 💕",
+    "I’m madly in love with you 😍",
+    "You are my sunshine on rainy days ☀️",
+    "I love your beautiful soul ✨",
+    "You are my favorite love 💖",
+    "I can’t stop loving you ❤️",
+    "You are my forever happiness ♾️",
+    "I love every second with you ⏰💕",
+    "You are my sweetest girl 🍓",
+    "I’m completely in love with you 💘",
+    "You are my world 🌎❤️",
+    "I love the way you make me feel 🥰",
+    "You are my dream and reality ✨",
+    "I will always choose you 💍",
+    "You are my heart’s treasure 💎",
+    "I love you more than yesterday ❤️",
+    "You are my constant love 💕",
+    "I feel blessed to have you 🙏",
+    "You are my everything in life 🌍",
+    "I love your beautiful eyes 👀❤️",
+    "You are my perfect match 🔥",
+    "I adore you deeply 🤍",
+    "You are my true love story 📖❤️",
+    "I’m thankful for your existence 🌹",
+    "You are my reason to believe 💫",
+    "I love your sweet voice 🎶",
+    "You are my emotional home 🏡",
+    "I’m happiest because of you 😊",
+    "You are my favorite love ever 💖",
+    "I love being yours ❤️",
+    "You are my endless romance ♾️💕",
+    "I’m proud to love you 👑",
+    "You are my heart’s happiness 💓",
+    "I love your presence in my life 🌸",
+    "You are my beautiful destiny ✨",
+    "I will love you forever and always ♾️❤️",
+    "You are my strongest love 💪💕",
+    "I’m deeply connected to you 🤍",
+    "You are my everything I prayed for 🙏",
+    "I love you without limits ❤️",
+    "You are my ultimate love 💘",
+    "I choose you today and always 💍",
+    "You are my dream girl forever ✨",
+    "You are the best thing that ever happened to me ✨",
+    "I choose you every single day 💍",
+    "My heart beats only for you 💓",
+    "You complete my life 💑",
+    "I feel better when I’m with you 🤍",
+    "You are my dream come true, baby 🌟",
+    "I adore you more than anything ❤️",
+    "Life is better with you in it 🌎",
+    "You are my favorite girl 🥰",
+    "I’m always here for you 💬",
+    "I love everything about you 💖",
+    "You mean the world to me, my love 🌍❤️",
+    "I can’t imagine my life without you 😔",
+    "You are my peace 🕊️",
+    "I’m falling for you more every day 💘",
+    "You are my forever ♾️",
+    "I love talking to you all night 🌙",
+    "You make me smile without even trying 😊",
+    "I trust you with my heart 🔐",
+    "You are my only one 💞",
+    "I love your voice 🎶",
+    "You are my sunshine, baby ☀️",
+    "Being with you feels like home 🏡",
+    "I’m proud of you, my girl ❤️",
+    "You are my beautiful queen 👑",
+    "I care about you more than you know 💗",
+    "You are my happiness source ⚡",
+    "I want you in my future 🌅",
+    "You are my heart’s favorite 💓",
+    "I love your personality 🥰",
+    "You are everything I prayed for 🙏",
+    "I feel calm when I’m with you 🤍",
+    "You are my love story 📖❤️",
+    "I’m crazy about you 😍",
+    "You are my sweetest addiction 🍯",
+    "I love the way you laugh 😂❤️",
+    "You are my queen, always 👑",
+    "I will always protect you 🛡️",
+    "You are my reason to smile 😊",
+    "I love you more than words can say 💬❤️",
+    "You are my heart and soul 💖",
+    "I miss your hugs 🤗",
+    "You are my dream girl ✨",
+    "I love spending time with you ⏳",
+    "You are my everything and more 💘",
+    "I feel blessed because of you 🙌",
+    "You are my constant happiness 💕",
+    "I love you endlessly ❤️♾️",
+    "You are my favorite notification 📱❤️",
+    "I smile when I see your name 💌",
+    "You make my days better 🌈",
+    "I feel complete with you 💑",
+    "You are my strongest motivation 💪❤️",
+    "I’m thankful for you every day 🙏",
+    "You are my inspiration ✨",
+    "I love the way you care 🤍",
+    "You are my special girl 💕",
+    "My future starts with you 🌅",
+    "I’m happiest when I’m with you 😊",
+    "You are my heart’s desire 💓",
+    "I never want to lose you ❤️",
+    "You are my perfect match 🔥",
+    "I love you more than yesterday 💖",
+    "You are my safe heaven 🕊️",
+    "I’m yours completely 💘",
+    "You are my best decision ever 🌟",
+    "I love being yours ❤️",
+    "You are my forever love ♾️💕",
+    "I will never stop loving you 💘"
+];
+
+/* ===== CHANGE EVERY HOUR (STABLE) ===== */
+function changeSentence(){
+    const hour = new Date().getHours();
+    const index = hour % sentences.length;
+
+    document.getElementById("terminalText").textContent = sentences[index];
+}
+
+/* ===== TIMER ===== */
+function updateTimer(){
+    const now = new Date();
+
+    const nextHour = new Date();
+    nextHour.setHours(now.getHours() + 1, 0, 0, 0);
+
+    const diff = nextHour - now;
+
+    const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+    document.getElementById("timer").textContent =
+        minutes + "m " + seconds + "s";
+}
+
+/* ===== AUTO UPDATE ===== */
+changeSentence();
+updateTimer();
+setInterval(updateTimer, 1000);
+
+function scheduleNextUpdate(){
+    const now = new Date();
+    const msUntilNextHour =
+        (60 - now.getMinutes() - 1) * 60000 +
+        (60 - now.getSeconds()) * 1000;
+
+    setTimeout(() => {
+        changeSentence();
+        scheduleNextUpdate();
+    }, msUntilNextHour);
+}
+
+scheduleNextUpdate();
+
+/* ===== THEME TOGGLE ===== */
+const themeSwitch = document.getElementById("themeSwitch");
+const savedTheme = localStorage.getItem("theme");
+
+if(savedTheme){
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    themeSwitch.checked = savedTheme === "dark";
+}
+
+themeSwitch.addEventListener("change", () => {
+    const theme = themeSwitch.checked ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+});
+
+</script>
+
+</body>
+</html>
