@@ -43,7 +43,7 @@ button{
   justify-content:center;
 }
 
-.back-btn{
+/* .back-btn{
   display:none;
   margin-top:15px;
   padding:12px 30px;
@@ -52,7 +52,7 @@ button{
   font-weight:bold;
   background:white;
   color:#ff4d6d;
-}
+} */
 
 .game{
   display:none;
@@ -190,7 +190,7 @@ button{
 
 <div class="game" id="game"></div>
 
-<button class="back-btn" onclick="goBack()">Back</button>
+<!-- <button class="back-btn" onclick="goBack()">Back</button> -->
 
 
 <script>
@@ -475,7 +475,7 @@ function startGame(selectedLevel){
 
   levelScreen.style.display="none";
   game.style.display="flex";
-  document.querySelector(".back-btn").style.display="block";
+  // document.querySelector(".back-btn").style.display="block";
 
   document.getElementById("level").textContent=level;
 
@@ -493,7 +493,7 @@ function goBack(){
   game.style.display="none";
   info.style.display="none";
   winScreen.style.display="none";
-  document.querySelector(".back-btn").style.display="none";
+  // document.querySelector(".back-btn").style.display="none";
 
   levelScreen.style.display="flex";
   game.innerHTML="";
