@@ -1,54 +1,55 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon</title>
+<title>Stars Background</title>
+
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    flex-direction: column;
-  }
+body {
+  margin: 0;
+  background: black;
+  overflow: hidden;
+}
 
-  /* حلقة تحميل متوهجة */
-  .loader {
-    width: 100px;
-    height: 100px;
-    border: 10px solid rgba(255,255,255,0.1);
-    border-top: 10px solid #ff4081; /* اللون المتوهج */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    box-shadow: 0 0 20px #ff4081;
-    margin-bottom: 30px;
-  }
+/* النجوم */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: move linear infinite;
+  opacity: 0.8;
+}
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes move {
+  from {
+    transform: translateY(0);
   }
-
-  /* كلمة Soon بدون توهج */
-  .soon {
-    font-size: 3em;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: #ff4081; /* لون ثابت */
+  to {
+    transform: translateY(100vh);
   }
+}
 </style>
 </head>
+
 <body>
 
-<div class="loader"></div>
-<div class="soon">Soon</div>
-<div class="soon">eid mubarak</div>
+<script>
+// إنشاء النجوم
+for (let i = 0; i < 150; i++) {
+  let star = document.createElement("div");
+  star.className = "star";
+
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.top = Math.random() * 100 + "vh";
+
+  // سرعة مختلفة لكل نجمة
+  star.style.animationDuration = (2 + Math.random() * 5) + "s";
+
+  document.body.appendChild(star);
+}
+</script>
 
 </body>
 </html>
