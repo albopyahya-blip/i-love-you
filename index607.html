@@ -10,59 +10,24 @@
 <style>
 
 body{
-background:white;
-color:black;
-font-family:monospace;
+  background:white;
+  color:black;
+  font-family:monospace;
 
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 
-min-height:100vh;
-margin:0;
-text-align:center;
-
+  min-height:100vh;
+  margin:0;
+  text-align:center;
 }
 
 /* typing */
-
 #typing{
-font-size:22px;
-letter-spacing:1px;
-margin-bottom:30px;
-}
-
-/* videos */
-
-#videoBox{
-display:none;
-width:90%;
-max-width:500px;
-}
-
-.videoButtons{
-margin-bottom:20px;
-}
-
-.videoButtons button{
-margin:5px;
-padding:10px 15px;
-border:none;
-background:#ff4d6d;
-color:white;
-border-radius:6px;
-cursor:pointer;
-}
-
-.videoButtons button:hover{
-background:#ff1f4b;
-}
-
-video{
-width:100%;
-border-radius:12px;
-display:none;
+  font-size:22px;
+  letter-spacing:1px;
 }
 
 </style>
@@ -72,105 +37,51 @@ display:none;
 
 <div id="typing"></div>
 
-<div id="videoBox">
-
-<div class="videoButtons">
-<button onclick="playVideo(1)">Video 1</button>
-<button onclick="playVideo(2)">Video 2</button>
-<button onclick="playVideo(3)">Video 3</button>
-</div>
-
-<video id="video1" controls>
-<source src="video/video1.mp4" type="video/mp4">
-</video>
-
-<video id="video2" controls>
-<source src="video/video2.mp4" type="video/mp4">
-</video>
-
-<video id="video3" controls>
-<source src="video/video3.mp4" type="video/mp4">
-</video>
-
-</div>
-
 <script>
 
 /* typing animation */
 
-let typingElement=document.getElementById("typing")
-let videoBox=document.getElementById("videoBox")
+let typingElement = document.getElementById("typing")
 
-let messages=[
-"1 year...",
-"12 months...",
-"365 days...",
-"8760 hours...",
-"525600 minutes...",
-"31536000 seconds...",
-"Every day...",
-"Every night...",
-"Every time...",
-"I love you"
+let messages = [
+  "1 year...",
+  "12 months...",
+  "365 days...",
+  "8760 hours...",
+  "525600 minutes...",
+  "31536000 seconds...",
+  "Every day...",
+  "Every night...",
+  "Every time...",
+  "I love you"
 ]
 
-let messageIndex=0
-let charIndex=0
+let messageIndex = 0
+let charIndex = 0
 
 function type(){
-
-if(charIndex<messages[messageIndex].length){
-
-typingElement.innerHTML+=messages[messageIndex].charAt(charIndex)
-
-charIndex++
-
-setTimeout(type,40)
-
-}else{
-
-setTimeout(nextMessage,900)
-
-}
-
+  if(charIndex < messages[messageIndex].length){
+    typingElement.innerHTML += messages[messageIndex].charAt(charIndex)
+    charIndex++
+    setTimeout(type, 40)
+  }else{
+    setTimeout(nextMessage, 900)
+  }
 }
 
 function nextMessage(){
+  messageIndex++
+  charIndex = 0
+  typingElement.innerHTML = ""
 
-messageIndex++
-charIndex=0
-typingElement.innerHTML=""
-
-if(messageIndex<messages.length){
-
-type()
-
-}else{
-
-typingElement.innerHTML="i wake up i think of you i go to sleep i dream of you"
-
-videoBox.style.display="block"
-
-}
-
+  if(messageIndex < messages.length){
+    type()
+  }else{
+    typingElement.innerHTML = "i wake up i think of you i go to sleep i dream of you"
+  }
 }
 
 type()
-
-/* video selector */
-
-function playVideo(num){
-
-document.querySelectorAll("video").forEach(v=>{
-v.pause()
-v.style.display="none"
-})
-
-let selected=document.getElementById("video"+num)
-selected.style.display="block"
-selected.play()
-
-}
 
 </script>
 
