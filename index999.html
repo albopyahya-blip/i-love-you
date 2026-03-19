@@ -4,48 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>eid mubarak</title>
-<style>
 
-
-/* النجوم */
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  animation: move linear infinite;
-  opacity: 0.8;
-}
-
-@keyframes move {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(100vh);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<script>
-// إنشاء النجوم
-for (let i = 0; i < 150; i++) {
-  let star = document.createElement("div");
-  star.className = "star";
-
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.top = Math.random() * 100 + "vh";
-
-  // سرعة مختلفة لكل نجمة
-  star.style.animationDuration = (2 + Math.random() * 5) + "s";
-
-  document.body.appendChild(star);
-}
-</script>
 <style>
 /* ===================== متغيرات الثيم ===================== */
 :root {
