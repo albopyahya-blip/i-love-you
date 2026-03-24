@@ -136,28 +136,22 @@ body {
 
 .slider {
   position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--bg-side);
-  transition: 0.4s;
+  inset: 0;
+  background: var(--bg-side);
   border-radius: 30px;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 .slider:before {
-  position: absolute;
   content: "";
-  height: 1em;       /* أصغر شوي */
-  width: 1em;        /* أصغر شوي */
-  border-radius: 50%;
+  position: absolute;
+  height: 1em;
+  width: 1em;
   left: 0.4em;
   bottom: 0.4em;
-  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
-  background-color: var(--btn-main);
-  box-shadow: inset 6px -3px 0px 0px #fff;
+  border-radius: 50%;
+  background: var(--btn-main);
+  transition: 0.4s;
 }
 
 .switch input:checked + .slider {
