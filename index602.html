@@ -1,155 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday</title>
-  <link rel="stylesheet" href="css/ym602.css" />
-</head>
-<body>
-  <div class="container">
-    <div id="login">
-      <h1>Welcome My Princess 👀</h1>
-      <p>Enter your secret word my love</p>
-      <input type="password" id="password" placeholder="Password..." />
-      <button onclick="unlock()">Open</button>
-      <p id="error" class="error"></p>
-    </div>
-
-    <div id="letter" class="hidden">
-      <h2>From me to you</h2>
-      <p class="message">I Love You Forever maloktyyy</p>
-      <p class="foot">For you forever<br>my wife</p>
-      
-
-
-
-            <div class="music-lock">
-                <button id="playBtn">🔒</button>
-            </div>
-
-
-<audio controls autoplay loop id="music" src="sound/Albumaty.Com_mhmd_sayd_fy_ayny.mp3"hidden></audio>
-
-    </div>
-  </div>
-  <script src="js/ym602.js"></script>
-  
-
-  
-<label class="switch">
-  <input type="checkbox" id="themeSwitch">
-  <span class="slider">
-    <span class="star star_1"></span>
-    <span class="star star_2"></span>
-    <span class="star star_3"></span>
-    <span class="cloud">☁️</span>
-  </span>
-</label>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Battery ❤️</title>
 
 <style>
-/* Switch Container أصغر */
-.switch {
-  font-size: 15px;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: inline-block;
-  width: 3.2em;   /* أصغر شوي */
-  height: 1.8em;  /* أصغر شوي */
-  border-radius: 30px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  z-index: 2000;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--bg-side);
-  transition: 0.4s;
-  border-radius: 30px;
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #000000, #1a1a1a);
   overflow: hidden;
 }
 
-.slider:before {
+/* Title */
+h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+/* Progress bar container */
+.bar-container {
+  width: 85%;
+  max-width: 400px;
+  height: 35px;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+}
+
+/* Progress bar */
+.bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #ff004c, #ff66a3);
+  box-shadow: 0 0 15px #ff4d88;
+  transition: 0.4s ease;
+}
+
+/* Message text */
+.message {
+  margin-top: 20px;
+  font-size: 100%;
+  opacity: 0.9;
+}
+
+/* Button */
+button {
+  margin-top: 30px;
+  padding: 14px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #ff004c, #ff66a3);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #ff4d88;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Final popup */
+#final {
+  display: none;
+  margin-top: 30px;
+  animation: pop 1s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Hearts animation */
+.heart {
   position: absolute;
-  content: "";
-  height: 1em;       /* أصغر شوي */
-  width: 1em;        /* أصغر شوي */
-  border-radius: 50%;
-  left: 0.4em;
-  bottom: 0.4em;
-  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
-  background-color: var(--btn-main);
-  box-shadow: inset 6px -3px 0px 0px #fff;
+  font-size: 20px;
+  animation: float 5s linear infinite;
+  opacity: 0.6;
 }
 
-.switch input:checked + .slider {
-  background-color: var(--accent);
-}
-
-.switch input:checked + .slider:before {
-  transform: translateX(1.4em);  /* تحريك أقل بسبب صغر الحجم */
-  box-shadow: inset 12px -3px 0px 12px #ffcf48;
-}
-
-/* النجوم */
-.star {
-  background-color: #fff;
-  border-radius: 50%;
-  position: absolute;
-  width: 4px;   /* أصغر شوي */
-  height: 4px;  /* أصغر شوي */
-  transition: all 0.4s;
-}
-
-.star_1 { left: 2em; top: 0.4em; }
-.star_2 { left: 1.8em; top: 1em; }
-.star_3 { left: 2.4em; top: 0.7em; }
-
-.switch input:checked ~ .slider .star {
-  opacity: 0;
-}
-
-/* السحابة */
-.cloud {
-  width: 2.8em;   /* أصغر شوي */
-  position: absolute;
-  bottom: -1em;
-  left: -0.9em;
-  opacity: 0;
-  transition: all 0.4s;
-}
-
-.switch input:checked ~ .slider .cloud {
-  opacity: 1;
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
 }
 </style>
+</head>
+
+<body>
+
+<h1 id="percent">Love Level: 0% </h1>
+
+<div class="bar-container">
+  <div class="bar" id="bar"></div>
+</div>
+
+<p class="message" id="msg">Click to see how much I love you</p>
+
+<button onclick="increaseLove()">Tap ❤️</button>
+
+<div id="final">
+  <h2>You reached MAX LOVE</h2>
+  <!-- <p>بس الحقيقة... أنا من الأول 100% 😏❤️</p> -->
+</div>
 
 <script>
-const themeSwitch = document.getElementById('themeSwitch');
-const html = document.documentElement;
+let love = 0;
 
-// الوضع الحالي
-let darkMode = localStorage.getItem('theme') === 'light' ? false : true;
-themeSwitch.checked = !darkMode;
-html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+// English يظهر / العربي ترجمة ليك
+const messages = [
+  "I never planned to meet you…",
+"It just happened quietly",
+"At first you were just someone I knew",
+"Nothing special or so I thought",
+"But slowly something started to change",
+"I found myself waiting for you",
+"Not just to talk but just to feel you near",
+"You became part of my day without me noticing",
+"And somehow part of my peace",
+"I tried to understand this feeling",
+"But the more I thought, the deeper I fell",
+"You weren’t just anyone anymore",
+"You became someone I can’t imagine replacing",
+"Someone I don’t want to lose",
+"And then I realized",
+"I didn’t just like you",
+"I fell in love with you"
+];
 
-themeSwitch.addEventListener('change', () => {
-  darkMode = !themeSwitch.checked;
-  html.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-});
+let currentIndex = 0;
+
+// كل ضغطة تظهر الرسالة التالية
+function updateMessage() {
+  const msg = document.getElementById("msg");
+  if (currentIndex < messages.length) {
+    msg.innerText = messages[currentIndex];
+    currentIndex++;
+  }
+}
+
+function increaseLove() {
+  if (love < 100) {
+    love += Math.floor(Math.random() * 8) + 6;
+    if (love > 100) love = 100;
+
+    document.getElementById("bar").style.width = love + "%";
+    document.getElementById("percent").innerText = "Love Level: " + love + "% ❤️";
+
+    updateMessage();
+
+    if (navigator.vibrate) navigator.vibrate(40);
+
+  } else {
+    document.getElementById("final").style.display = "block";
+    explodeHearts();
+  }
+}
+
+// قلوب تظهر عند 100%
+function explodeHearts() {
+  for (let i = 0; i < 25; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+}
 </script>
 
 </body>

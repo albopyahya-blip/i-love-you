@@ -1,239 +1,33 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<title>Happy Birthday</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday</title>
 
 <style>
 
-*{box-sizing:border-box}
-
-/* ---------- THEME COLORS ---------- */
-
-:root{
-  --overlay: radial-gradient(circle, #333333, #111111);
-  --bg-image: url("background.jpg");
-  --text-main:#ffffff;
-}
-
-[data-theme="light"]{
-  --overlay: radial-gradient(circle, rgba(255,200,220,.7), rgba(255,240,245,.9));
-  --bg-image: url("background.jpg");
-  --text-main:#111;
-}
-
-/* ---------- BODY ---------- */
-
 body{
-  margin:0;
-  height:100vh;
+  background:white;
+  color:black;
+  font-family:monospace;
+
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
 
-  background:
-    var(--overlay),
-    var(--bg-image) no-repeat center/cover;
-
-  font-family:'Segoe UI',sans-serif;
-  overflow:hidden;
-  color:var(--text-main);
-  transition:0.4s;
-}
-
-/* ================= ENVELOPE ================= */
-
-.envelope{
-  width:340px;
-  height:220px;
-  position:relative;
-  cursor:pointer;
-  perspective:1200px;
-}
-
-.env-body{
-  width:100%;
-  height:100%;
-  background:#fff;
-  border-radius:16px;
-  /* box-shadow:0 40px 100px rgba(255, 0, 0, 0.8); */
-  position:relative;
-  overflow:hidden;
-}
-
-/* FLAP */
-
-.flap{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:linear-gradient(135deg,#ff2d75,#ff9abf);
-  clip-path:polygon(0 0,100% 0,50% 58%);
-  transform-origin:top;
-  transition:transform 1.2s cubic-bezier(.22,1,.36,1);
-  z-index:3;
-}
-
-/* LETTER */
-
-.letter{
-  position:absolute;
-  inset:18px;
-  padding:20px;
-  overflow-y:auto;
+  min-height:100vh;
+  margin:0;
   text-align:center;
-  transform:translateY(140%);
-  transition:transform 1.6s cubic-bezier(.22,1,.36,1);
 }
 
-.envelope.open .flap{
-  transform:rotateX(180deg);
-}
-
-.envelope.open .letter{
-  transform:translateY(0);
-}
-
-/* ================= TEXT ================= */
-
-.text{
-  color:#111;
-  font-size:17px;
-  line-height:1.8;
-  text-transform:uppercase;
-
-  /* إضاءة رومانسية وردية */
-  /* text-shadow:
-    0 0 5px #ff9ac2,
-    0 0 12px #ff6fa5,
-    0 0 22px #ff2d75,
-    0 0 35px #ff2d75; */
-}
-
-.name{
-  font-weight:900;
-  font-size:20px;
-  animation:glow 3s infinite;
-}
-
-/* تأثير لمعان للاسم */
-@keyframes glow{
-
-  0%{
-    text-shadow:
-      0 0 8px #ff6fa5;
-  }
-
-  50%{
-    text-shadow:
-      0 0 15px #ff6fa5,
-      0 0 30px #ff2d75,
-      0 0 45px #ff2d75;
-  }
-
-  100%{
-    text-shadow:
-      0 0 8px #ff6fa5;
-  }
-
-}
-/* ================= HEARTS ================= */
-
-.float{
-  position:fixed;
-  bottom:-30px;
-  animation:up 7s linear forwards;
-  pointer-events:none;
-}
-
-@keyframes up{
-  from{transform:translateY(0) scale(.8);opacity:1}
-  to{transform:translateY(-120vh) scale(1.6);opacity:0}
-}
-
-/* ================= THEME SWITCH ================= */
-
-.switch{
-  font-size:15px;
-  position:fixed;
-  top:20px;
-  right:20px;
-  width:3.2em;
-  height:1.8em;
-  border-radius:30px;
-  box-shadow:0 0 8px rgba(0,0,0,0.1);
-  z-index:2000;
-}
-
-.switch input{
-  display:none;
-}
-
-.slider{
-  position:absolute;
-  cursor:pointer;
-  inset:0;
-  background:#333;
-  border-radius:30px;
-  transition:.4s;
-  overflow:hidden;
-}
-
-.slider:before{
-  content:"";
-  position:absolute;
-  height:1em;
-  width:1em;
-  left:0.4em;
-  bottom:0.4em;
-  border-radius:50%;
-  background:#ff77bb;
-  transition:.4s;
-  box-shadow: inset 6px -3px 0px 0px #fff;
-}
-
-.switch input:checked + .slider{
-  background:#70b5ff;
-}
-
-.switch input:checked + .slider:before{
-  transform:translateX(1.4em);
-  box-shadow: inset 12px -3px 0px 12px #ffcf48;
-}
-
-/* stars */
-
-.star{
-  background:#fff;
-  border-radius:50%;
-  position:absolute;
-  width:4px;
-  height:4px;
-}
-
-.star_1{left:2em;top:.4em}
-.star_2{left:1.8em;top:1em}
-.star_3{left:2.4em;top:.7em}
-
-.switch input:checked ~ .slider .star{
-  opacity:0;
-}
-
-/* cloud */
-
-.cloud{
-  position:absolute;
-  bottom:-1em;
-  left:-.9em;
-  opacity:0;
-  transition:.4s;
-}
-
-.switch input:checked ~ .slider .cloud{
-  opacity:1;
+/* typing */
+#typing{
+  font-size:22px;
+  letter-spacing:1px;
 }
 
 </style>
@@ -241,131 +35,55 @@ body{
 
 <body>
 
-  <audio id="music" loop>
-    <source src="sound/Albumaty.Com_mhmd_sayd_fy_ayny.mp3" type="audio/mpeg">
-  </audio>
-
-<div class="envelope" onclick="openEnvelope()">
-
-<div class="env-body">
-
-<div class="flap"></div>
-
-<div class="letter">
-<div class="text">
-
-HAPPY BIRTHDAT💕 <br>
-<span class="name">MY WIFE</span><br><br>
-
-Sometimes I try to find the right words to explain how much you mean to me but the truth is that words are never enough From the moment you came into my life everything changed in the most beautiful way You brought happiness into my days peace into my heart and a feeling of love that I had never felt before<br><br>
-
-You are not just someone I love you are the person who makes my life feel complete Your smile can make my worst day better and your voice is enough to calm my mind when everything feels chaotic When I look at you I see more than just a beautiful girl I see my best friend my partner and the person I want to share every moment of my life with<br><br>
-
-No matter what happens in life I promise that I will always stand by your side I will support you respect you and protect your heart as much as I can I want to be the person who makes you feel safe loved and appreciated every single day<br><br>
-
-You are my happiness my peace and my forever I cannot imagine a future without you in it because you are the most important part of my life<br><br>
-
-I love you more than words can ever explain and I will keep loving you more every single day<br><br>
-
-
-
-
-<strong>
-Forever yours<br>
-</strong>
-
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- SWITCH -->
-
-<label class="switch">
-<input type="checkbox" id="themeSwitch">
-<span class="slider">
-<span class="star star_1"></span>
-<span class="star star_2"></span>
-<span class="star star_3"></span>
-<!-- <span class="cloud">☁️</span> -->
-</span>
-</label>
+<div id="typing"></div>
 
 <script>
 
-/* ---------- ENVELOPE ---------- */
+/* typing animation */
 
-let opened=false;
+let typingElement = document.getElementById("typing")
 
-function openEnvelope(){
+let messages = [
+  "1 year...",
+  "12 months...",
+  "365 days...",
+  "8760 hours...",
+  "525600 minutes...",
+  "31536000 seconds...",
+  "Every day...",
+  "Every night...",
+  "Every time...",
+  "I love you"
+]
 
-if(opened) return;
-opened=true;
+let messageIndex = 0
+let charIndex = 0
 
-document.querySelector(".envelope").classList.add("open");
-
-const music=document.getElementById("music");
-
-music.volume=0;
-music.play();
-
-let v=0;
-
-const fade=setInterval(()=>{
-
-v+=0.05;
-music.volume=Math.min(v,1);
-
-if(v>=1) clearInterval(fade);
-
-},200);
-
-setInterval(spawn,350);
-
+function type(){
+  if(charIndex < messages[messageIndex].length){
+    typingElement.innerHTML += messages[messageIndex].charAt(charIndex)
+    charIndex++
+    setTimeout(type, 40)
+  }else{
+    setTimeout(nextMessage, 900)
+  }
 }
 
-function spawn(){
+function nextMessage(){
+  messageIndex++
+  charIndex = 0
+  typingElement.innerHTML = ""
 
-const e=document.createElement("div");
-
-e.className="float";
-
-let items = ["❤️","💘","❤️","💘","❤️","💘","❤️","💘","❤️","💘","❤️","💘","❤️","💘","❤️","💘","💘","💘","💘","💘","💘","💘","💘"];
-
-e.innerHTML = items[Math.floor(Math.random() * items.length)];
-e.style.left=Math.random()*100+"vw";
-e.style.fontSize=(18+Math.random()*26)+"px";
-
-document.body.appendChild(e);
-
-setTimeout(()=>e.remove(),7000);
-
+  if(messageIndex < messages.length){
+    type()
+  }else{
+    typingElement.innerHTML = "i wake up i think of you i go to sleep i dream of you"
+  }
 }
 
-/* ---------- THEME SWITCH ---------- */
-
-const themeSwitch=document.getElementById("themeSwitch");
-const html=document.documentElement;
-
-let savedTheme=localStorage.getItem("theme")||"dark";
-
-html.setAttribute("data-theme",savedTheme);
-
-themeSwitch.checked=savedTheme==="light";
-
-themeSwitch.addEventListener("change",()=>{
-
-const theme=themeSwitch.checked?"light":"dark";
-
-html.setAttribute("data-theme",theme);
-
-localStorage.setItem("theme",theme);
-
-});
+type()
 
 </script>
-
 
 </body>
 </html>

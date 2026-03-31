@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+/* =======================
+THEME COLORS
+======================= */
+
+:root{
+
+--bg-main:#111111;
+--bg-card:rgba(255,255,255,0.08);
+--text-main:#eeeeee;
+--accent:#ff66aa;
+--soft-pink:#f8bbd0;
+
+}
+
+[data-theme="light"]{
+
+--bg-main:#fff0f5;
+--bg-card:rgba(255,255,255,0.8);
+--text-main:#222;
+--accent:#e6007a;
+--soft-pink:#ffb6c1;
+
+}
+
+/* =======================
+BODY
+======================= */
+
+body{
+
+background:var(--bg-main);
+color:var(--text-main);
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+padding:4rem 2rem;
+transition:0.4s;
+
+}
+
+/* =======================
+SCROLL BAR
+======================= */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+background:var(--soft-pink);
+border-radius:10px;
+}
+
+/* =======================
+PROGRESS BAR
+======================= */
+
+.progress-bar{
+
+position:fixed;
+top:0;
+left:0;
+height:5px;
+background:linear-gradient(45deg,#e73c7e,#ee7752);
+width:0%;
+z-index:100;
+
+}
+
+/* =======================
+HEART BACKGROUND
+======================= */
+
+.heart-background{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+overflow:hidden;
+z-index:-1;
+}
+
+.heart-bg{
+
+position:absolute;
+width:20px;
+height:20px;
+background:var(--soft-pink);
+
+clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+
+animation:float 25s infinite linear;
+opacity:0.6;
+
+}
+
+@keyframes float{
+
+0%{transform:translateY(110vh) rotate(0deg)}
+100%{transform:translateY(-10vh) rotate(720deg)}
+
+}
+
+/* =======================
+TITLE
+======================= */
+
+.gallery-container h1{
+
+font-family:'Dancing Script',cursive;
+text-align:center;
+font-size:3.5rem;
+margin-bottom:3rem;
+color:var(--accent);
+
+}
+
+/* =======================
+PHOTO CARD
+======================= */
+
+.photo-entry{
+
+background:var(--bg-card);
+backdrop-filter:blur(10px);
+
+max-width:650px;
+margin:3rem auto;
+
+border-radius:20px;
+
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+
+overflow:hidden;
+
+opacity:0;
+transform:translateY(40px);
+
+transition:0.8s;
+
+}
+
+.photo-entry.visible{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+.photo-entry:hover{
+
+transform:scale(1.05);
+
+}
+
+.photo-entry img,
+.photo-entry video{
+
+width:100%;
+display:block;
+
+}
+
+.description{
+
+padding:2rem;
+text-align:center;
+font-size:1.2rem;
+
+}
+.video-like {
+  width: 300px;
+  text-align: center;
+  animation: fadeIn 3s ease-in-out infinite alternate;
+}
+
+.video-like img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.video-like p {
+  color: white;
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* =======================
+YOUTUBE VIDEO
+======================= */
+
+.video-container{
+
+position:relative;
+width:100%;
+padding-top:56.25%;
+
+}
+
+.video-container iframe{
+
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+}
+
+/* =======================
+THEME SWITCH
+======================= */
+
+.switch{
+
+position:fixed;
+top:20px;
+right:20px;
+
+width:60px;
+height:30px;
+
+}
+
+.switch input{
+display:none;
+}
+
+.slider{
+
+position:absolute;
+cursor:pointer;
+
+top:0;
+left:0;
+right:0;
+bottom:0;
+
+background:#ccc;
+border-radius:34px;
+transition:.4s;
+
+}
+
+.slider:before{
+
+position:absolute;
+content:"";
+
+height:22px;
+width:22px;
+
+left:4px;
+bottom:4px;
+
+background:white;
+border-radius:50%;
+
+transition:.4s;
+
+}
+
+input:checked + .slider{
+
+background:var(--accent);
+
+}
+
+input:checked + .slider:before{
+
+transform:translateX(30px);
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- THEME SWITCH -->
+
+<label class="switch">
+<input type="checkbox" id="themeSwitch">
+<span class="slider"></span>
+</label>
+
+<!-- HEARTS -->
+
+<div class="heart-background">
+
+<div class="heart-bg" style="left:10%;animation-delay:0s"></div>
+<div class="heart-bg" style="left:20%;animation-delay:2s"></div>
+<div class="heart-bg" style="left:30%;animation-delay:4s"></div>
+<div class="heart-bg" style="left:40%;animation-delay:6s"></div>
+<div class="heart-bg" style="left:50%;animation-delay:8s"></div>
+<div class="heart-bg" style="left:60%;animation-delay:10s"></div>
+<div class="heart-bg" style="left:70%;animation-delay:12s"></div>
+<div class="heart-bg" style="left:80%;animation-delay:14s"></div>
+
+</div>
+
+<!-- GALLERY -->
+
+<main class="gallery-container">
+
+<h1>My Other Half</h1>
+
+<div class="photo-entry">
+<img src="img/IMG_8737.JPG">
+<p class="description">
+I will never forget the first day we started talking
+</p>
+</div>
+<div class="photo-entry">
+<img src="img/WhatsApp Image 2026-03-08 at 1.47.36 PM.jpeg">
+<p class="description">
+I love you more than words can say.
+</p>
+</div>
+<div class="photo-entry">
+<img src="img/841002a5-b4f4-4d13-8757-1f405db6c3d1.JPG">
+<p class="description">
+I’m lucky to have you
+</p>
+</div>
+<div class="photo-entry">
+
+ <img src="img/bd669b86-efd0-48bd-9836-337b4eadee6b.JPG">
+
+  <p class="description">
+    You mean everything to me
+  </p>
+
+</div>
+<div class="photo-entry">
+<img src="img/IMG_7779.JPG">
+<p class="description">
+You are the most beautiful girl i have ever met 
+</p>
+</div>
+<div class="photo-entry">
+<img src="img/WhatsApp Image 2026-03-08 at 1.48.04 PM.jpeg">
+<p class="description">
+I like seeing you smile but i love being the reason for your smile 
+</p>
+</div>
+<div class="photo-entry">
+    <img src="img/WhatsApp Image 2026-03-18 at 12.07.41 PM.jpeg">
+
+
+<p class="description">
+You are my favorite person
+</p>
+</div>
+<div class="photo-entry">
+
+  <video controls autoplay loop muted>
+    <source src="video/F8E81BB0-8D20-4AB3-A53A-BA5D48130AF0.MP4" type="video/mp4">
+  </video>
+
+  <p class="description">
+    I have a lover who is worth a thousand star in the sky
+  </p>
+
+</div>
+
+
+
+
+
+
+<p class="description">❤️❤️❤️❤️❤️❤️❤️❤️
+<br>i promise allah for sending me you my love <br>❤️❤️❤️❤️❤️❤️❤️❤️
+</p>
+
+
+</div>
+
+</main>
+
+<script>
+
+/* =======================
+SCROLL ANIMATION
+======================= */
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+});
+
+document.querySelectorAll(".photo-entry").forEach(el=>{
+observer.observe(el);
+});
+
+/* =======================
+SCROLL PROGRESS
+======================= */
+
+const progressBar=document.getElementById("progressBar");
+
+window.addEventListener("scroll",()=>{
+
+const height=document.body.scrollHeight-window.innerHeight;
+
+const progress=(window.scrollY/height)*100;
+
+progressBar.style.width=progress+"%";
+
+});
+
+/* =======================
+THEME SWITCH
+======================= */
+
+const switchBtn=document.getElementById("themeSwitch");
+const html=document.documentElement;
+
+const savedTheme=localStorage.getItem("theme");
+
+if(savedTheme){
+
+html.setAttribute("data-theme",savedTheme);
+switchBtn.checked=savedTheme==="light";
+
+}
+
+switchBtn.addEventListener("change",()=>{
+
+const theme=switchBtn.checked?"light":"dark";
+
+html.setAttribute("data-theme",theme);
+
+localStorage.setItem("theme",theme);
+
+});
+
+</script>
+<style>
+/* Switch Container أصغر */
+.switch {
+  font-size: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  width: 3.2em;   /* أصغر شوي */
+  height: 1.8em;  /* أصغر شوي */
+  border-radius: 30px;
+  box-shadow: 0 0 8px #ffe0f0b0;
+  z-index: 2000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-side);
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;       /* أصغر شوي */
+  width: 1em;        /* أصغر شوي */
+  border-radius: 50%;
+  left: 0.4em;
+  bottom: 0.4em;
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  background-color: var(--btn-main);
+  box-shadow: inset 6px -3px 0px 0px #fff;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);  /* تحريك أقل بسبب صغر الحجم */
+  box-shadow: inset 12px -3px 0px 12px #ffcf48;
+}
+
+/* النجوم */
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 4px;   /* أصغر شوي */
+  height: 4px;  /* أصغر شوي */
+  transition: all 0.4s;
+}
+
+.star_1 { left: 2em; top: 0.4em; }
+.star_2 { left: 1.8em; top: 1em; }
+.star_3 { left: 2.4em; top: 0.7em; }
+
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
+
+/* السحابة */
+.cloud {
+  width: 2.8em;   /* أصغر شوي */
+  position: absolute;
+  bottom: -1em;
+  left: -0.9em;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
+}
+</style>
+</body>
+</html>
