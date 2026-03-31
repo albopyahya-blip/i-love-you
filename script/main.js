@@ -12,7 +12,7 @@ function applyTheme(mode) {
   const c = CONFIG.colors;
 
   root.style.setProperty("--primary", c.primary || "#ff69b4");
-  root.style.setProperty("--accent", c.accent || "#129ae3");
+  root.style.setProperty("--accent", c.accent || "#ff69b4");
 
   const theme = c[mode] || c.dark || {};
   root.style.setProperty("--bg", theme.background || "#1a1a2e");
@@ -89,12 +89,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     title: "Play music in the background?",
     icon: "question",
     showCancelButton: true,
-    confirmButtonColor: CONFIG.colors.accent || "#de0b75",
+    confirmButtonColor: CONFIG.colors.accent || "#e6007a",
     cancelButtonColor: "#888",
-    confirmButtonText: "Yes!",
+    confirmButtonText: "Yes",
     cancelButtonText: "No",
-    background: isDark ? "#ff99cca9" : "#ffffff",
-    color: isDark ? "#f1f5f9" : "#1e293b",
+    background: isDark ? "#111111" : "#ffffff",
+    color: isDark ? "#eeeeee" : "#222222",
   }).then((result) => {
     if (result.isConfirmed && audio) {
       audio.play().catch(() => {});
