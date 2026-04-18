@@ -1,38 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Don't press here💘</title>
-</head>
-<body>
-    <video 
-            controls
-            muted
-            loop
-            autoplay
-            width="100%">
-                <source src="video/WhatsApp Video 2026-03-14 at 6.54.28 AM.mp4" type="video/mp4">
-            </video> 
-            
-        </div>
-</body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don't press here 💘</title>
+
 <style>
-    body{
-    background-color: rgb(0, 0, 0);
+body {
+    margin: 0;
+    background-color: black;
     height: 100vh;
-    margin: 0;          /* يشيل الفراغ الافتراضي */
-    padding: 0;         /* يشيل أي حشو */
-    min-height: 100vh;  /* يخلي الصفحة طول الشاشة */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+video {
     width: 100%;
-    box-sizing: border-box;
+    max-height: 80vh;
 }
-* {
-    box-sizing: border-box;
+
+.controls {
+    margin-top: 15px;
 }
-html, body {
-  height: 100%;
-  margin: 0;
+
+button {
+    background: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+
+button.active {
+    background: #ff66aa;
+    color: white;
 }
 </style>
+</head>
+
+<body>
+
+<!-- شيلنا source من هنا -->
+<video id="player" controls autoplay muted loop></video>
+
+<div class="controls">
+    <button class="active" onclick="changeVideo(0)">1</button>
+    <button onclick="changeVideo(1)">2</button>
+    <button onclick="changeVideo(2)">3</button>
+    <button onclick="changeVideo(3)">4</button>
+
+
+</div>
+
+<script>
+const videos = [
+    "video/WhatsApp Video 2026-03-14 at 6.54.28 AM.mp4",
+    "vi/314A28FE-5304-4665-8924-8906219B4EA5.MP4",
+    "video1/1775081854495979.mov",
+    "video1/copy_8A5B6F83-5B42-4A82-9901-C0AD4627CE71.MOV"
+    
+
+    
+
+];
+
+const player = document.getElementById("player");
+const buttons = document.querySelectorAll("button");
+
+// 👇 ده المهم
+window.onload = function() {
+    changeVideo(0); // يشغل أول فيديو تلقائي
+};
+
+function changeVideo(index) {
+    player.src = videos[index];
+    player.play();
+
+    buttons.forEach(btn => btn.classList.remove("active"));
+    buttons[index].classList.add("active");
+}
+</script>
+
+</body>
 </html>
